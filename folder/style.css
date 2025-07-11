@@ -1,0 +1,817 @@
+/* General Body and Container Styles */
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Friendly font */
+    margin: 0;
+    padding: 0; /* Padding will be set dynamically by JS for header spacing */
+    background-color: #f4f4f4; /* Light gray background */
+    color: #333;
+    line-height: 1.6;
+    /* overflow: hidden; will be added/removed by JS during loading */
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px; /* Max width for readability */
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* --- Loading Overlay Styles --- */
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's on top of everything */
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out; /* Smooth fade out */
+    backdrop-filter: blur(8px); /* Blur effect */
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
+}
+
+#loading-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+    transform: scale(0.8); /* Start slightly smaller */
+    animation: fadeInScale 1s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bounce in */
+}
+
+.python-logo {
+    font-size: 8em; /* Large python emoji */
+    margin-bottom: 20px;
+    animation: floatUpDown 2s infinite alternate ease-in-out,
+               rotateLogo 4s infinite linear; /* Floating and subtle rotation */
+    display: inline-block; /* Required for transform on inline elements */
+    filter: drop-shadow(0 0 15px rgba(76, 175, 80, 0.8)); /* Glow effect */
+}
+
+.loading-text {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #4CAF50; /* Python green */
+    letter-spacing: 5px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.loading-text span {
+    display: inline-block;
+    opacity: 0;
+    animation: revealText 0.8s forwards;
+    animation-delay: calc(var(--i) * 0.1s); /* Staggered appearance */
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.6);
+}
+
+.loading-subtext {
+    font-size: 1.2em;
+    color: #bbb;
+    opacity: 0;
+    animation: fadeIn 1s forwards 1.5s; /* Fade in after text */
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes floatUpDown {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-20px); }
+}
+
+@keyframes rotateLogo {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+@keyframes revealText {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Header Styles (FIXED) --- */
+header {
+    background-color: #4CAF50; /* Green theme */
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: fixed; /* Make it fixed */
+    width: 100%; /* Ensure it spans full width */
+    top: 0; /* Pin to the top */
+    left: 0;
+    z-index: 200; /* Higher than sidebar (50) and main content (implied lower) but lower than loading overlay (9999) */
+    display: flex; /* Use flex to center content vertically */
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content */
+    /* No explicit height here; let content define it for accurate JS calculation */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Main Content Flex Container */
+.main-content-flex {
+    display: flex;
+    /* No padding-top here. It's applied to body by JS. */
+    padding-top: 0;
+    min-height: 100vh; /* Ensure it takes full viewport height for proper layout */
+    box-sizing: border-box; /* Include padding in height calculation */
+}
+
+/* Left Panel (Sidebar Navigation) */
+.left-panel {
+    width: 250px;
+    background-color: #333; /* Dark sidebar */
+    color: white;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    position: fixed; /* Make it fixed */
+    left: 0; /* Align to the left edge of the viewport */
+    z-index: 50; /* Ensure it's above main content but below loading overlay and header */
+    overflow-y: auto; /* Allow scrolling within the sidebar if content is long */
+    box-sizing: border-box; /* Include padding in height calculation */
+    /* top and height will be set by JS */
+}
+
+.left-panel h3 {
+    color: #FFD700; /* Gold for headings */
+    margin-top: 0; /* Ensure no top margin pushes it down */
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.left-panel nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.left-panel nav ul li {
+    margin-bottom: 10px;
+}
+
+.left-panel nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.left-panel nav ul li a:hover {
+    background-color: #555;
+    transform: translateX(5px);
+}
+
+.left-panel nav ul li a.active {
+    background-color: #4CAF50; /* Highlight active module */
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(76,175,80,0.5);
+}
+
+.left-panel nav ul li a.locked {
+    color: #bbb; /* Dim locked modules */
+    cursor: not-allowed;
+    background-color: #444;
+    position: relative;
+    padding-right: 30px; /* Make space for lock icon */
+}
+
+.left-panel nav ul li a.locked::after {
+    content: '🔒'; /* Lock emoji */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8em;
+}
+
+/* Progress Overview */
+.progress-overview {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #555;
+}
+
+.progress-overview p {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between text and indicator */
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #bbb; /* Default: grey/incomplete */
+    border: 2px solid #999;
+}
+
+.status-indicator.complete {
+    background-color: #4CAF50; /* Green for complete */
+    border-color: #388E3C;
+}
+
+/* Module Display Area */
+.module-display-area {
+    flex-grow: 1; /* Take up remaining space */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    overflow-y: auto; /* Enable scrolling for module content */
+    margin-left: 250px; /* Same width as .left-panel */
+    box-sizing: border-box; /* Include padding in width/height calculation */
+}
+
+.module-section {
+    display: none; /* Hide all modules by default */
+}
+
+.module-section.active {
+    display: block; /* Show active module */
+}
+
+.module-heading {
+    color: #4CAF50;
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.module-intro {
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+/* Hero Section (Home Page) */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #e0ffe0; /* Light green background */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.hero-text h3 {
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.intro-message {
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 25px;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.intro-insight {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-top: 30px;
+    text-align: left;
+    max-width: 800px;
+}
+
+.intro-insight h4 {
+    color: #007bff;
+    font-size: 1.5rem;
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.cta-button {
+    background-color: #007bff; /* Blue button */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Lesson Card Styles */
+.lesson-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+
+.lesson-card:hover {
+    transform: translateY(-5px);
+}
+
+.lesson-card h3 {
+    color: #333;
+    font-size: 1.6rem;
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.lesson-card ul {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin-bottom: 15px;
+}
+
+.lesson-card li {
+    margin-bottom: 8px;
+}
+
+.lesson-card p {
+    margin-bottom: 15px;
+}
+
+.code-block {
+    background-color: #e8e8e8; /* Lighter gray for code blocks */
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto; /* Enable horizontal scroll for long code lines */
+    margin: 20px 0;
+    border: 1px solid #ccc;
+}
+
+.code-block pre {
+    margin: 0;
+    white-space: pre-wrap; /* Wrap long lines */
+    word-break: break-all; /* Break words for long lines */
+}
+
+.code-block code {
+    font-family: 'Consolas', 'Monaco', monospace; /* Monospace font for code */
+    font-size: 0.95rem;
+    color: #00008b; /* Dark blue for code */
+}
+
+.mark-complete-button {
+    background-color: #28a745; /* Green for complete button */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.mark-complete-button:hover {
+    background-color: #218838;
+}
+
+.completion-status {
+    margin-left: 15px;
+    font-weight: bold;
+    color: #666;
+}
+
+.completion-status.complete {
+    color: #28a745; /* Green when complete */
+}
+
+/* Module Unlock Section */
+.module-unlock-section {
+    background-color: #ffe0b2; /* Light orange background for unlock section */
+    border: 2px dashed #ff9800; /* Dashed orange border */
+    border-radius: 8px;
+    padding: 30px;
+    margin-top: 40px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.module-unlock-section h3 {
+    color: #d84315; /* Darker orange for heading */
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.module-unlock-section p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+/* Key Question Styles for multi-question unlock */
+.key-question {
+    margin-bottom: 15px;
+    text-align: left; /* Align question text to the left */
+    width: 80%; /* Adjust width */
+    max-width: 400px; /* Max width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.key-question p {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.key-question input[type="text"] {
+    width: calc(100% - 22px); /* Full width minus padding and border */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease; /* For feedback colors */
+}
+
+.module-unlock-section button {
+    background-color: #ff9800; /* Orange unlock button */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+}
+
+.module-unlock-section button:hover {
+    background-color: #f57c00;
+    transform: translateY(-2px);
+}
+
+.unlock-status {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #dc3545; /* Red for incorrect */
+}
+
+.unlock-status.success {
+    color: #28a745; /* Green for success */
+}
+
+/* Exercise and Solution Blocks */
+.exercise-block {
+    background-color: #e6f7ff; /* Light blue for exercises */
+    border-color: #007bff;
+}
+
+.solution-button {
+    background-color: #17a2b8; /* Cyan for solution button */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.solution-button:hover {
+    background-color: #138496;
+}
+
+.solution-content {
+    display: none; /* Hidden by default */
+    background-color: #f0f8ff; /* Lighter blue for solution content */
+    border: 1px dashed #66ccff;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.solution-content pre code {
+    color: #8A2BE2; /* Purple for solution code */
+}
+
+/* Labs and Challenges Section */
+.lab-card {
+    background-color: #f0f0f0; /* Light gray for labs */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.lab-card h3 {
+    color: #0056b3; /* Dark blue for lab headings */
+    font-size: 1.7rem;
+    margin-top: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.lab-button {
+    background-color: #6c757d; /* Gray for lab buttons */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.lab-button:hover {
+    background-color: #5a6268;
+}
+
+.lab-details-content {
+    display: none;
+    background-color: #fafafa;
+    border: 1px dashed #999;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.lab-details-content h4 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.lab-details-content ol, .lab-details-content ul {
+    margin-bottom: 10px;
+}
+
+.lab-details-content a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.lab-details-content a:hover {
+    text-decoration: underline;
+}
+
+.large-button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+}
+
+/* Mobile Programming Concept Card */
+.mobile-programming-concept {
+    background-color: #fff3e0; /* Light orange/yellow for mobile concept */
+    border-color: #ffc107;
+    text-align: center;
+    padding: 30px;
+}
+
+.mobile-programming-concept h3 {
+    color: #e65100; /* Dark orange */
+}
+
+.mobile-concept-img {
+    max-width: 250px;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+
+/* About Section */
+#about {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+#about h2 {
+    color: #4CAF50;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+#about p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto 15px auto;
+    color: #555;
+}
+
+/* Page Number */
+.page-number {
+    text-align: right;
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px dashed #eee;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    /* Main flex container changes */
+    .main-content-flex {
+        flex-direction: column;
+        padding-top: 0; /* Remove padding-top for mobile */
+    }
+
+    /* Header changes for mobile */
+    header {
+        position: relative; /* Make header relative again on small screens */
+        padding: 0.8rem 0; /* Slightly less padding */
+        height: auto; /* Allow height to be auto */
+        display: block; /* Revert to block display */
+    }
+    header h1 {
+        font-size: 1.8rem;
+    }
+    /* header h2 is removed from HTML, so this rule is no longer needed */
+
+
+    /* Left panel changes for mobile */
+    .left-panel {
+        position: relative; /* Reset to relative for smaller screens */
+        width: 100%;
+        max-height: 200px; /* Limit height for smaller screens */
+        overflow-y: auto; /* Make it scrollable if too many items */
+        padding-bottom: 0; /* Adjust padding for better look */
+        top: auto; /* Remove fixed top position */
+        height: auto; /* Allow height to adjust */
+    }
+
+    .left-panel nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .left-panel nav ul li {
+        margin: 5px;
+    }
+
+    .left-panel nav ul li a {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .left-panel .progress-overview {
+        display: none; /* Hide progress overview on smaller screens to save space */
+    }
+
+    .hero-text h3 {
+        font-size: 2rem;
+    }
+
+    .hero-text p, .intro-insight p, .lesson-card p, .module-unlock-section p {
+        font-size: 1rem;
+    }
+
+    .cta-button, .module-unlock-section button {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+
+    .module-heading {
+        font-size: 1.8rem;
+    }
+
+    .lesson-card h3 {
+        font-size: 1.4rem;
+    }
+
+    .video-container {
+        padding-bottom: 65%; /* Adjust aspect ratio for better mobile viewing if needed */
+    }
+
+    /* Main content area changes for mobile */
+    .module-display-area {
+        margin-left: 0; /* Remove left margin for smaller screens */
+        margin-top: 0; /* Remove top margin for smaller screens */
+        height: auto; /* Allow height to adjust naturally */
+    }
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .container {
+        width: 95%;
+        padding: 10px 0;
+    }
+
+    .module-display-area {
+        padding: 15px;
+    }
+
+    .lesson-card, .module-unlock-section, .lab-card {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .key-question {
+        width: 95%;
+    }
+
+    .key-question input[type="text"] {
+        width: calc(100% - 20px);
+    }
+}
