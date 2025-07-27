@@ -6,6 +6,8 @@
     <title>Mastering Python Programming - For Everyone!</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3Ctext x='50%' y='90%' style='font-size: 80px; text-anchor: middle;'%3E%F0%9F%90%8D%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <!-- Font Awesome for hamburger icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
@@ -42,19 +44,24 @@
     </div>
 
     <header>
+        <!-- Hamburger menu icon for mobile -->
+        <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
         <h1 id="dynamic-header-text">Welcome to Mastering Python Programming!</h1>
     </header>
 
-    <!-- Changed div to main for semantic grouping of main content -->
     <div class="main-content-flex">
 
         <aside class="left-panel">
+            <button id="close-sidebar" class="close-sidebar" aria-label="Close navigation menu">
+                <i class="fas fa-times"></i>
+            </button>
             <h3>Course Modules</h3>
             <nav>
                 <ul>
                     <li><a href="#" data-target="home" id="nav-home">Home</a></li>
                     <li><a href="#" data-target="module1" id="nav-module1">Module 1: Getting Started</a></li>
-                    <!-- REMOVED "(Locked)" text -->
                     <li><a href="#" data-target="module2" id="nav-module2" class="locked">Module 2: Loops & Functions</a></li>
                     <li><a href="#" data-target="module3" id="nav-module3" class="locked">Module 3: Binary & ASCII</a></li>
                     <li><a href="#" data-target="labs" id="nav-labs" class="locked">Labs & Challenges</a></li>
@@ -81,7 +88,6 @@
                     </div>
 
                     <div class="video-container">
-                        <!-- Corrected YouTube embed URL for better compatibility and added title for accessibility -->
                         <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="What is Python? Why Python is So Popular?"></iframe>
                     </div>
 
@@ -89,7 +95,6 @@
                         <h4>Why Learn Python? It's for Everyone!</h4>
                         <p>Python is like a superpower for computers! It's used by huge companies like Google, NASA, Netflix, and Instagram to build their amazing products. It's fantastic because it's super easy to read and write, almost like speaking English. This makes it perfect whether you're a young explorer excited to build your first game, or an experienced learner ready to tackle data science or artificial intelligence! Learning Python means you get to join a big community of creators and build cool stuff too!</p>
                     </div>
-                    <!-- Removed onclick, using data-target for JS event listener -->
                     <button class="cta-button" id="continueToModule1">Continue to Module 1</button>
                 </div>
             </section>
@@ -98,11 +103,9 @@
                 <h2 class="module-heading">Module 1: Getting Started</h2>
                 <p class="module-intro">This module will be your first step into the amazing world of Python programming. You'll learn what Python is, how to set up your environment, and understand the fundamental building blocks of Python code, all explained in an easy-to-understand way!</p>
 
-                <!-- Changed div.lesson-card to article for semantic reasons -->
                 <article class="lesson-card">
                     <h3>Lesson 1.1: What is Python?</h3>
                     <p>Python is a high-level, interpreted programming language known for its simplicity and readability. It's used for web development, data analysis, artificial intelligence, scientific computing, and much more. Its syntax is designed to be easy to understand, making it a great language for everyone, regardless of their prior experience!</p>
-                    <!-- Removed onclick, using data-lesson-id for JS event listener -->
                     <button class="mark-complete-button" data-lesson-id="lesson1-1">Mark as Complete</button>
                     <span id="lesson1-1-status" class="completion-status">Incomplete</span>
                 </article>
@@ -121,7 +124,6 @@
                 <article class="lesson-card exercise-block">
                     <h3>Exercise 1.1: Print Your Name</h3>
                     <p>Write a Python program that prints your full name to the console.</p>
-                    <!-- Removed onclick, using data-solution-target for JS event listener -->
                     <button class="solution-button" data-solution-target="solution1-1">Show Solution</button>
                     <div id="solution1-1" class="solution-content">
                         <h4>Solution:</h4>
@@ -286,7 +288,6 @@ or a docstring.
                         <p>3. What data type is <code>42</code>?</p>
                         <input type="text" id="m1q3" placeholder="Your answer">
                     </div>
-                    <!-- Removed onclick, using data-module-target for JS event listener -->
                     <button class="unlock-module-button" data-module-target="module1">Unlock Module 2</button>
                     <p id="module1-unlock-status" class="unlock-status"></p>
                 </section>
@@ -611,11 +612,9 @@ print(chr(72)) # Output: H</code></pre>
                 <h2 class="module-heading">Labs & Challenges</h2>
                 <p class="module-intro">Time to apply what you've learned! These labs and challenges will test your Python skills and problem-solving abilities, no matter your age or experience!</p>
 
-                <!-- Changed div.lab-card to article for semantic reasons -->
                 <article class="lab-card">
                     <h3>Lab 1: Simple Calculator</h3>
                     <p>Create a Python script that acts as a simple calculator. It should take two numbers and an operator (+, -, *, /) as input from the user and print the result. Handle division by zero.</p>
-                    <!-- Removed onclick, using data-lab-target for JS event listener -->
                     <button class="lab-button" data-lab-target="lab1">Show Lab Details</button>
                     <div id="lab1-details" class="lab-details-content">
                         <h4>Instructions:</h4>
@@ -629,7 +628,6 @@ print(chr(72)) # Output: H</code></pre>
                         </ol>
                         <h4>Hint:</h4>
                         <p>Use `input()` for user input and `float()` or `int()` for type conversion.</p>
-                        <!-- Added rel="noopener noreferrer" for security when opening new tabs -->
                         <a href="#" target="_blank" rel="noopener noreferrer" class="large-button">Download Starter Code (Optional)</a>
                     </div>
                     <button class="mark-complete-button" data-lesson-id="lab1-completion">Mark Lab as Complete</button>
@@ -707,6 +705,7 @@ print(chr(72)) # Output: H</code></pre>
                 <p>This "Mastering Python Programming" course is designed for everyone – regardless of age or prior experience. Whether you're a young learner just starting your coding journey, a student looking to excel in STEM, or an adult professional aiming to enhance your skills, this course will take you beyond the basics and delve into more complex and practical aspects of Python. It's built to empower you to automate tasks, solve problems, and even create amazing projects!</p>
                 <p>We believe in hands-on learning, which is why each module is packed with practical examples, engaging exercises, and real-world challenges. Our goal, here at STEMIndia, led by Abhishek Dutta, is to equip you with the skills and confidence to tackle any Python project and foster a lifelong love for coding.</p>
                 <p>Happy coding, and welcome to the STEMIndia family!</p>
+                <button id="changeNameBtn" class="cta-button">Change My Name</button>
             </section>
         </main>
     </div>
@@ -725,6 +724,13 @@ print(chr(72)) # Output: H</code></pre>
             const userNameInput = document.getElementById('userNameInput');
             const saveNameBtn = document.getElementById('saveNameBtn');
             const dynamicHeaderText = document.getElementById('dynamic-header-text');
+            const changeNameBtn = document.getElementById('changeNameBtn'); // New: Change Name button
+
+            // Mobile sidebar elements
+            const menuToggle = document.getElementById('menu-toggle');
+            const leftPanel = document.querySelector('.left-panel');
+            const closeSidebarBtn = document.getElementById('close-sidebar');
+            const mainContentFlex = document.querySelector('.main-content-flex');
 
             // Show loading overlay initially
             loadingOverlay.classList.remove('hidden');
@@ -758,6 +764,18 @@ print(chr(72)) # Output: H</code></pre>
                     userNameInput.style.borderColor = 'red';
                 }
             });
+
+            // New: Event listener for Change Name button
+            if (changeNameBtn) {
+                changeNameBtn.addEventListener('click', () => {
+                    localStorage.removeItem('userName'); // Clear stored name
+                    userNameInput.value = ''; // Clear input field
+                    nameInputModal.classList.add('active'); // Show modal again
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                    userNameInput.style.borderColor = ''; // Reset border color
+                    userNameInput.placeholder = 'Enter your name here...'; // Reset placeholder
+                });
+            }
 
             function updateUserName(name) {
                 dynamicHeaderText.textContent = `Welcome, ${name} to Mastering Python Programming!`;
@@ -830,7 +848,8 @@ print(chr(72)) # Output: H</code></pre>
 
                     if (this.classList.contains('locked')) {
                         // Optional: Add a visual cue that it's locked
-                        alert('This module is locked! Please complete the previous module quiz to unlock.');
+                        // alert('This module is locked! Please complete the previous module quiz to unlock.'); // Replaced alert with console log
+                        console.log('This module is locked! Please complete the previous module quiz to unlock.');
                         return;
                     }
 
@@ -850,6 +869,13 @@ print(chr(72)) # Output: H</code></pre>
                         navLink.classList.remove('active');
                     });
                     this.classList.add('active');
+
+                    // Close sidebar on mobile after selection
+                    if (window.innerWidth <= 900) { // Assuming 900px is your mobile breakpoint
+                        leftPanel.classList.remove('active');
+                        mainContentFlex.classList.remove('sidebar-open');
+                        document.body.style.overflow = ''; // Re-enable scrolling
+                    }
                 });
             });
 
@@ -1127,14 +1153,87 @@ print(chr(72)) # Output: H</code></pre>
                 });
             }
 
+            // --- Decimal/Binary Converter Logic ---
+            const decimalInput = document.getElementById('decimalInput');
+            const convertToBinaryBtn = document.getElementById('convertToBinaryBtn');
+            const binaryOutput = document.getElementById('binaryOutput');
+
+            const binaryInput = document.getElementById('binaryInput');
+            const convertToDecimalBtn = document.getElementById('convertToDecimalBtn');
+            const decimalOutput = document.getElementById('decimalOutput');
+
+            const converterError = document.getElementById('converterError');
+
+            // Function to convert decimal to binary
+            if (convertToBinaryBtn) {
+                convertToBinaryBtn.addEventListener('click', () => {
+                    converterError.textContent = ''; // Clear previous errors
+                    const decimalValue = parseInt(decimalInput.value, 10);
+
+                    if (isNaN(decimalValue)) {
+                        converterError.textContent = 'Please enter a valid decimal number.';
+                        binaryOutput.value = '';
+                        return;
+                    }
+                    if (decimalValue < 0) {
+                        converterError.textContent = 'Please enter a non-negative decimal number.';
+                        binaryOutput.value = '';
+                        return;
+                    }
+
+                    binaryOutput.value = decimalValue.toString(2); // Built-in JS function for binary conversion
+                });
+            }
+
+            // Function to convert binary to decimal
+            if (convertToDecimalBtn) {
+                convertToDecimalBtn.addEventListener('click', () => {
+                    converterError.textContent = ''; // Clear previous errors
+                    const binaryValue = binaryInput.value.trim();
+
+                    // Validate binary input (only 0s and 1s)
+                    if (!/^[01]+$/.test(binaryValue) || binaryValue === '') {
+                        converterError.textContent = 'Please enter a valid binary number (only 0s and 1s).';
+                        decimalOutput.value = '';
+                        return;
+                    }
+
+                    decimalOutput.value = parseInt(binaryValue, 2); // Built-in JS function for decimal conversion
+                });
+            }
+
+            // --- Mobile Sidebar Toggle Logic ---
+            if (menuToggle && leftPanel && closeSidebarBtn && mainContentFlex) {
+                menuToggle.addEventListener('click', () => {
+                    leftPanel.classList.add('active');
+                    mainContentFlex.classList.add('sidebar-open'); // Add class to body/main to push content
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when sidebar is open
+                });
+
+                closeSidebarBtn.addEventListener('click', () => {
+                    leftPanel.classList.remove('active');
+                    mainContentFlex.classList.remove('sidebar-open');
+                    document.body.style.overflow = ''; // Re-enable scrolling
+                });
+            }
+
+
             // --- Dynamic Header Padding for Fixed Header ---
             function adjustMainContentPadding() {
                 const headerHeight = document.querySelector('header').offsetHeight;
                 document.body.style.paddingTop = `${headerHeight}px`;
-                const leftPanel = document.querySelector('.left-panel');
-                if (leftPanel) {
+
+                // Adjust left panel height and top position for desktop view
+                if (window.innerWidth > 900) { // Assuming 900px is your mobile breakpoint
                     leftPanel.style.top = `${headerHeight}px`;
                     leftPanel.style.height = `calc(100vh - ${headerHeight}px)`;
+                    leftPanel.classList.remove('active'); // Ensure sidebar is not active on desktop
+                    mainContentFlex.classList.remove('sidebar-open'); // Ensure no push on desktop
+                    document.body.style.overflow = ''; // Ensure scrolling is enabled on desktop
+                } else {
+                    // On mobile, sidebar height is full viewport height, top is 0
+                    leftPanel.style.top = '0';
+                    leftPanel.style.height = '100vh';
                 }
             }
 
