@@ -598,7 +598,8 @@ print(chr(72)) # Output: H</code></pre>
                         <input type="text" id="m3q2" placeholder="Your answer">
                     </div>
                     <div class="key-question">
-                        <label for="m3q3" class="sr-only">Question 3: How many bits are in a byte?</p>
+                        <label for="m3q3" class="sr-only">Question 3: How many bits are in a byte?</label>
+                        <p>3. What data type is <code>42</code>?</p>
                         <input type="text" id="m3q3" placeholder="Your answer">
                     </div>
                     <button class="unlock-module-button" data-module-target="module3">Unlock Labs & Challenges</button>
@@ -762,6 +763,209 @@ print(chr(72)) # Output: H</code></pre>
 
                 decimalOutput.value = parseInt(binaryValue, 2); // Built-in JS function for decimal conversion
             });
+
+            // Module Unlock Logic (Module 1)
+            const unlockModule1Button = document.querySelector('.unlock-module-button[data-module-target="module1"]');
+            const module1UnlockStatus = document.getElementById('module1-unlock-status');
+
+            if (unlockModule1Button) {
+                unlockModule1Button.addEventListener('click', () => {
+                    const m1q1 = document.getElementById('m1q1').value.trim().toLowerCase();
+                    const m1q2 = document.getElementById('m1q2').value.trim().toLowerCase();
+                    const m1q3 = document.getElementById('m1q3').value.trim().toLowerCase();
+
+                    let allCorrect = true;
+
+                    // Question 1: What keyword is used to display output in Python? (Answer: print)
+                    if (m1q1 === 'print') {
+                        document.getElementById('m1q1').classList.remove('incorrect-answer');
+                        document.getElementById('m1q1').classList.add('correct-answer');
+                    } else {
+                        document.getElementById('m1q1').classList.remove('correct-answer');
+                        document.getElementById('m1q1').classList.add('incorrect-answer');
+                        allCorrect = false;
+                    }
+
+                    // Question 2: What is the process of finding and fixing errors in code called? (Answer: debugging)
+                    if (m1q2 === 'debugging') {
+                        document.getElementById('m1q2').classList.remove('incorrect-answer');
+                        document.getElementById('m1q2').classList.add('correct-answer');
+                    } else {
+                        document.getElementById('m1q2').classList.remove('correct-answer');
+                        document.getElementById('m1q2').classList.add('incorrect-answer');
+                        allCorrect = false;
+                    }
+
+                    // Question 3: What data type is 42? (Answer: int or integer)
+                    if (m1q3 === 'int' || m1q3 === 'integer') {
+                        document.getElementById('m1q3').classList.remove('incorrect-answer');
+                        document.getElementById('m1q3').classList.add('correct-answer');
+                    } else {
+                        document.getElementById('m1q3').classList.remove('correct-answer');
+                        document.getElementById('m1q3').classList.add('incorrect-answer');
+                        allCorrect = false;
+                    }
+
+                    if (allCorrect) {
+                        module1UnlockStatus.textContent = 'Fantastic, Abhishek! You\'ve mastered Getting Started!';
+                        module1UnlockStatus.classList.remove('unlock-status');
+                        module1UnlockStatus.classList.add('unlock-status', 'success');
+                        // Unlock Module 2
+                        document.getElementById('nav-module2').classList.remove('locked');
+                        document.getElementById('nav-module2').classList.add('unlocked');
+                        document.getElementById('progress-module1').classList.add('complete');
+                        document.getElementById('progress-module2').classList.remove('status-indicator'); // Remove default status
+                        document.getElementById('progress-module2').classList.add('status-indicator', 'incomplete'); // Set initial status for module 2
+                        // Optionally disable inputs/button after success
+                        document.getElementById('m1q1').disabled = true;
+                        document.getElementById('m1q2').disabled = true;
+                        document.getElementById('m1q3').disabled = true;
+                        unlockModule1Button.disabled = true;
+                        unlockModule1Button.style.backgroundColor = '#ccc';
+                        unlockModule1Button.style.cursor = 'default';
+                    } else {
+                        module1UnlockStatus.textContent = 'Oops, Abhishek! Some answers are incorrect. Please review and try again. 😠';
+                        module1UnlockStatus.classList.remove('success');
+                        module1UnlockStatus.classList.add('unlock-status');
+                    }
+                });
+            }
+
+            // Module Unlock Logic (Module 2)
+            const unlockModule2Button = document.querySelector('.unlock-module-button[data-module-target="module2"]');
+            const module2UnlockStatus = document.getElementById('module2-unlock-status');
+
+            if (unlockModule2Button) {
+                unlockModule2Button.addEventListener('click', () => {
+                    const m2q1 = document.getElementById('m2q1').value.trim().toLowerCase();
+                    const m2q2 = document.getElementById('m2q2').value.trim().toLowerCase();
+                    const m2q3 = document.getElementById('m2q3').value.trim().toLowerCase();
+
+                    let allCorrect = true;
+
+                    // Question 1: What keyword is used to define a function? (Answer: def)
+                    if (m2q1 === 'def') {
+                        document.getElementById('m2q1').classList.remove('incorrect-answer');
+                        document.getElementById('m2q1').classList.add('correct-answer');
+                    } else {
+                        document.getElementById('m2q1').classList.remove('correct-answer');
+                        document.getElementById('m2q1').classList.add('incorrect-answer');
+                        allCorrect = false;
+                    }
+
+                    // Question 2: What loop iterates over a sequence? (Answer: for)
+                    if (m2q2 === 'for') {
+                        document.getElementById('m2q2').classList.remove('incorrect-answer');
+                        document.getElementById('m2q2').classList.add('correct-answer');
+                    } else {
+                        document.getElementById('m2q2').classList.remove('correct-answer');
+                        document.getElementById('m2q2').classList.add('incorrect-answer');
+                        allCorrect = false;
+                    }
+
+                    // Question 3: What keyword is used to create an anonymous function? (Answer: lambda)
+                    if (m2q3 === 'lambda') {
+                        document.getElementById('m2q3').classList.remove('incorrect-answer');
+                        document.getElementById('m2q3').classList.add('correct-answer');
+                    } else {
+                        document.getElementById('m2q3').classList.remove('correct-answer');
+                        document.getElementById('m2q3').classList.add('incorrect-answer');
+                        allCorrect = false;
+                    }
+
+                    if (allCorrect) {
+                        module2UnlockStatus.textContent = 'Keep going, Abhishek! You\'re currently in Loops & Functions!';
+                        module2UnlockStatus.classList.remove('unlock-status');
+                        module2UnlockStatus.classList.add('unlock-status', 'success');
+                        // Unlock Module 3
+                        document.getElementById('nav-module3').classList.remove('locked');
+                        document.getElementById('nav-module3').classList.add('unlocked');
+                        document.getElementById('progress-module2').classList.add('complete');
+                        document.getElementById('progress-module3').classList.remove('status-indicator'); // Remove default status
+                        document.getElementById('progress-module3').classList.add('status-indicator', 'incomplete'); // Set initial status for module 3
+                        // Optionally disable inputs/button after success
+                        document.getElementById('m2q1').disabled = true;
+                        document.getElementById('m2q2').disabled = true;
+                        document.getElementById('m2q3').disabled = true;
+                        unlockModule2Button.disabled = true;
+                        unlockModule2Button.style.backgroundColor = '#ccc';
+                        unlockModule2Button.style.cursor = 'default';
+                    } else {
+                        module2UnlockStatus.textContent = 'Oops, Abhishek! Some answers are incorrect. Please review and try again. 😠';
+                        module2UnlockStatus.classList.remove('success');
+                        module2UnlockStatus.classList.add('unlock-status');
+                    }
+                });
+            }
+
+            // Module Unlock Logic (Module 3)
+            const unlockModule3Button = document.querySelector('.unlock-module-button[data-module-target="module3"]');
+            const module3UnlockStatus = document.getElementById('module3-unlock-status');
+
+            if (unlockModule3Button) {
+                unlockModule3Button.addEventListener('click', () => {
+                    const m3q1 = document.getElementById('m3q1').value.trim().toLowerCase();
+                    const m3q2 = document.getElementById('m3q2').value.trim().toLowerCase();
+                    const m3q3 = document.getElementById('m3q3').value.trim().toLowerCase(); // This is the third question
+
+                    let allCorrect = true;
+
+                    // Question 1: What base is the binary system? (Answer: 2)
+                    if (m3q1 === '2') {
+                        document.getElementById('m3q1').classList.remove('incorrect-answer');
+                        document.getElementById('m3q1').classList.add('correct-answer');
+                    } else {
+                        document.getElementById('m3q1').classList.remove('correct-answer');
+                        document.getElementById('m3q1').classList.add('incorrect-answer');
+                        allCorrect = false;
+                    }
+
+                    // Question 2: What Python function gives the ASCII value of a character? (Answer: ord)
+                    if (m3q2 === 'ord') {
+                        document.getElementById('m3q2').classList.remove('incorrect-answer');
+                        document.getElementById('m3q2').classList.add('correct-answer');
+                    } else {
+                        document.getElementById('m3q2').classList.remove('correct-answer');
+                        document.getElementById('m3q2').classList.add('incorrect-answer');
+                        allCorrect = false;
+                    }
+
+                    // Question 3: How many bits are in a byte? (Answer: 8)
+                    if (m3q3 === '8') { // This is the check for the third question
+                        document.getElementById('m3q3').classList.remove('incorrect-answer');
+                        document.getElementById('m3q3').classList.add('correct-answer');
+                    } else {
+                        document.getElementById('m3q3').classList.remove('correct-answer');
+                        document.getElementById('m3q3').classList.add('incorrect-answer');
+                        allCorrect = false;
+                    }
+
+                    if (allCorrect) {
+                        module3UnlockStatus.textContent = 'Fantastic, Abhishek! You\'ve mastered Binary & ASCII!';
+                        module3UnlockStatus.classList.remove('unlock-status');
+                        module3UnlockStatus.classList.add('unlock-status', 'success');
+                        // Unlock Labs & Challenges
+                        document.getElementById('nav-labs').classList.remove('locked');
+                        document.getElementById('nav-labs').classList.add('unlocked'); // Add an 'unlocked' class for styling if needed
+                        document.getElementById('progress-module3').classList.add('complete');
+                        document.getElementById('progress-labs').classList.remove('status-indicator'); // Remove default status
+                        document.getElementById('progress-labs').classList.add('status-indicator', 'incomplete'); // Set initial status for labs
+                        // Optionally disable inputs/button after success
+                        document.getElementById('m3q1').disabled = true;
+                        document.getElementById('m3q2').disabled = true;
+                        document.getElementById('m3q3').disabled = true;
+                        unlockModule3Button.disabled = true;
+                        unlockModule3Button.style.backgroundColor = '#ccc';
+                        unlockModule3Button.style.cursor = 'default';
+                    } else {
+                        module3UnlockStatus.textContent = 'Oops, Abhishek! Some answers are incorrect. Please review and try again. 😠';
+                        module3UnlockStatus.classList.remove('success');
+                        module3UnlockStatus.classList.add('unlock-status');
+                    }
+                });
+            }
+
+            // ... (rest of the script) ...
         });
     </script>
 </body>
