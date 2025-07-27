@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mastering Python Programming - For Everyone!</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3Ctext x='50%' y='90%' style='font-size: 80px; text-anchor: middle;'%3E🐍%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3Ctext x='50%' y='90%' style='font-size: 80px; text-anchor: middle;'%3E%F0%9F%90%8D%3C/text%3E%3C/svg%3E" type="image/svg+xml">
 </head>
 <body>
 
     <div id="loading-overlay">
         <div class="loading-content">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo" class="python-logo-image">
+            <!-- Using a placeholder image for the Python logo as the original URL is external -->
+            <img src="https://placehold.co/150x150/388E3C/ffffff?text=Python+Logo" alt="Python Logo" class="python-logo-image">
             <div class="loading-text">
                 <span style="--i:0;">L</span>
                 <span style="--i:1;">o</span>
@@ -32,17 +33,19 @@
         <div class="modal-content">
             <h2>Welcome, Future Python Expert! 👋</h2>
             <p>What's your name? Let's personalize your learning journey!</p>
+            <!-- Added label for accessibility, visually hidden with sr-only class -->
+            <label for="userNameInput" class="sr-only">Enter your name</label>
             <input type="text" id="userNameInput" placeholder="Enter your name here..." maxlength="25">
             <button id="saveNameBtn">Start Learning!</button>
             <p class="modal-tip">Don't worry, you can change this later!</p>
         </div>
     </div>
 
-
     <header>
         <h1 id="dynamic-header-text">Welcome to Mastering Python Programming!</h1>
     </header>
 
+    <!-- Changed div to main for semantic grouping of main content -->
     <div class="main-content-flex">
 
         <aside class="left-panel">
@@ -51,9 +54,10 @@
                 <ul>
                     <li><a href="#" data-target="home" id="nav-home">Home</a></li>
                     <li><a href="#" data-target="module1" id="nav-module1">Module 1: Getting Started</a></li>
-                    <li><a href="#" data-target="module2" id="nav-module2" class="locked">Module 2: Loops & Functions (Locked)</a></li>
-                    <li><a href="#" data-target="module3" id="nav-module3" class="locked">Module 3: Binary & ASCII (Locked)</a></li>
-                    <li><a href="#" data-target="labs" id="nav-labs" class="locked">Labs & Challenges (Locked)</a></li>
+                    <!-- REMOVED "(Locked)" text -->
+                    <li><a href="#" data-target="module2" id="nav-module2" class="locked">Module 2: Loops & Functions</a></li>
+                    <li><a href="#" data-target="module3" id="nav-module3" class="locked">Module 3: Binary & ASCII</a></li>
+                    <li><a href="#" data-target="labs" id="nav-labs" class="locked">Labs & Challenges</a></li>
                     <li><a href="#" data-target="about" id="nav-about">About This Course</a></li>
                 </ul>
             </nav>
@@ -77,13 +81,15 @@
                     </div>
 
                     <div class="video-container">
-                        <iframe src="http://www.youtube.com/watch?v=Y8Tko2YC5hA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <!-- Corrected YouTube embed URL for better compatibility and added title for accessibility -->
+                        <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="What is Python? Why Python is So Popular?"></iframe>
                     </div>
 
                     <div class="intro-insight">
                         <h4>Why Learn Python? It's for Everyone!</h4>
                         <p>Python is like a superpower for computers! It's used by huge companies like Google, NASA, Netflix, and Instagram to build their amazing products. It's fantastic because it's super easy to read and write, almost like speaking English. This makes it perfect whether you're a young explorer excited to build your first game, or an experienced learner ready to tackle data science or artificial intelligence! Learning Python means you get to join a big community of creators and build cool stuff too!</p>
                     </div>
+                    <!-- Removed onclick, using data-target for JS event listener -->
                     <button class="cta-button" id="continueToModule1">Continue to Module 1</button>
                 </div>
             </section>
@@ -92,46 +98,49 @@
                 <h2 class="module-heading">Module 1: Getting Started</h2>
                 <p class="module-intro">This module will be your first step into the amazing world of Python programming. You'll learn what Python is, how to set up your environment, and understand the fundamental building blocks of Python code, all explained in an easy-to-understand way!</p>
 
-                <div class="lesson-card">
+                <!-- Changed div.lesson-card to article for semantic reasons -->
+                <article class="lesson-card">
                     <h3>Lesson 1.1: What is Python?</h3>
                     <p>Python is a high-level, interpreted programming language known for its simplicity and readability. It's used for web development, data analysis, artificial intelligence, scientific computing, and much more. Its syntax is designed to be easy to understand, making it a great language for everyone, regardless of their prior experience!</p>
-                    <button onclick="markComplete('lesson1-1')" class="mark-complete-button">Mark as Complete</button>
+                    <!-- Removed onclick, using data-lesson-id for JS event listener -->
+                    <button class="mark-complete-button" data-lesson-id="lesson1-1">Mark as Complete</button>
                     <span id="lesson1-1-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 1.2: Setting Up Your Python Environment & First Program</h3>
                     <p>To write and run Python code, you'll need an interpreter. We recommend installing Anaconda, which includes Python and many useful tools like Jupyter Notebook.</p>
                     <p>Once set up, let's write our very first Python program:</p>
                     <div class="code-block">
                         <pre><code>print("Hello, Python World!")</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson1-2')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson1-2">Mark as Complete</button>
                     <span id="lesson1-2-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card exercise-block">
+                <article class="lesson-card exercise-block">
                     <h3>Exercise 1.1: Print Your Name</h3>
                     <p>Write a Python program that prints your full name to the console.</p>
-                    <button class="solution-button" onclick="toggleSolution('solution1-1')">Show Solution</button>
+                    <!-- Removed onclick, using data-solution-target for JS event listener -->
+                    <button class="solution-button" data-solution-target="solution1-1">Show Solution</button>
                     <div id="solution1-1" class="solution-content">
                         <h4>Solution:</h4>
                         <div class="code-block">
                             <pre><code>print("Your Name Here")</code></pre>
                         </div>
                     </div>
-                    <button onclick="markComplete('assignment1-1')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="assignment1-1">Mark as Complete</button>
                     <span id="assignment1-1-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 1.3: Variables and Data Types</h3>
                     <p>Variables are used to store data values. Python has several built-in data types, including:</p>
                     <ul>
-                        <li>**Strings (str):** Text, e.g., <code>"Hello"</code></li>
-                        <li>**Integers (int):** Whole numbers, e.g., <code>10</code></li>
-                        <li>**Floats (float):** Decimal numbers, e.g., <code>3.14</code></li>
-                        <li>**Booleans (bool):** True/False values</li>
+                        <li><strong>Strings (str):</strong> Text, e.g., <code>"Hello"</code></li>
+                        <li><strong>Integers (int):</strong> Whole numbers, e.g., <code>10</code></li>
+                        <li><strong>Floats (float):</b> Decimal numbers, e.g., <code>3.14</code></li>
+                        <li><strong>Booleans (bool):</b> True/False values</li>
                     </ul>
                     <div class="code-block">
                         <pre><code>name = "Alice"
@@ -144,17 +153,17 @@ print(type(age))
 print(type(height))
 print(type(is_student))</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson1-3')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson1-3">Mark as Complete</button>
                     <span id="lesson1-3-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 1.4: Operators (Arithmetic, Comparison, Logical)</h3>
                     <p>Operators perform operations on variables and values.</p>
                     <ul>
-                        <li>**Arithmetic:** <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> (modulo)</li>
-                        <li>**Comparison:** <code>==</code>, <code>!=</code>, <code>></code>, <code><</code>, <code>>=</code>, <code><=</code></li>
-                        <li>**Logical:** <code>and</code>, <code>or</code>, <code>not</code></li>
+                        <li><strong>Arithmetic:</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> (modulo)</li>
+                        <li><strong>Comparison:</strong> <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></li>
+                        <li><strong>Logical:</strong> <code>and</code>, <code>or</code>, <code>not</code></li>
                     </ul>
                     <div class="code-block">
                         <pre><code>x = 10
@@ -162,22 +171,22 @@ y = 3
 print(x + y)  # 13
 print(x > y and x != y) # True</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson1-4')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson1-4">Mark as Complete</button>
                     <span id="lesson1-4-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 1.5: Input and Output</h3>
                     <p>Python makes it easy to get input from the user and display output.</p>
                     <div class="code-block">
                         <pre><code>user_name = input("Enter your name: ")
 print(f"Hello, {user_name}!")</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson1-5')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson1-5">Mark as Complete</button>
                     <span id="lesson1-5-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 1.6: Conditional Statements (if, elif, else)</h3>
                     <p>Control the flow of your program based on conditions.</p>
                     <div class="code-block">
@@ -189,16 +198,16 @@ elif age >= 13:
 else:
     print("You are a child.")</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson1-6')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson1-6">Mark as Complete</button>
                     <span id="lesson1-6-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 1.7: Lists and Tuples</h3>
                     <p>Ordered collections of items.</p>
                     <ul>
-                        <li>**Lists:** Mutable (can be changed), e.g., <code>[1, 2, 3]</code></li>
-                        <li>**Tuples:** Immutable (cannot be changed), e.g., <code>(1, 2, 3)</code></li>
+                        <li><strong>Lists:</strong> Mutable (can be changed), e.g., <code>[1, 2, 3]</code></li>
+                        <li><strong>Tuples:</strong> Immutable (cannot be changed), e.g., <code>(1, 2, 3)</code></li>
                     </ul>
                     <div class="code-block">
                         <pre><code>my_list = [10, 20, 30]
@@ -207,16 +216,16 @@ my_list.append(40) # Works
 my_tuple = (1, 2, 3)
 # my_tuple.append(4) # This would cause an error!</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson1-7')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson1-7">Mark as Complete</button>
                     <span id="lesson1-7-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 1.8: Dictionaries and Sets</h3>
                     <p>Unordered collections of items.</p>
                     <ul>
-                        <li>**Dictionaries:** Key-value pairs, e.g., <code>{'name': 'Alice', 'age': 30}</code></li>
-                        <li>**Sets:** Unique items, e.g., <code>{1, 2, 3}</code></li>
+                        <li><strong>Dictionaries:</strong> Key-value pairs, e.g., <code>{'name': 'Alice', 'age': 30}</code></li>
+                        <li><strong>Sets:</b> Unique items, e.g., <code>{1, 2, 3}</code></li>
                     </ul>
                     <div class="code-block">
                         <pre><code>my_dict = {'city': 'New York', 'temp': 25}
@@ -225,24 +234,24 @@ print(my_dict['city'])
 my_set = {1, 2, 2, 3}
 print(my_set) # Output: {1, 2, 3}</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson1-8')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson1-8">Mark as Complete</button>
                     <span id="lesson1-8-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 1.9: Basic String Operations</h3>
                     <p>Strings are sequences of characters. Python offers many built-in methods for string manipulation.</p>
                     <div class="code-block">
                         <pre><code>text = "Python is Fun!"
-print(len(text))       # Length
-print(text.upper())    # Uppercase
+print(len(text))     # Length
+print(text.upper())  # Uppercase
 print(text.replace("Fun", "Awesome")) # Replace</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson1-9')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson1-9">Mark as Complete</button>
                     <span id="lesson1-9-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 1.10: Comments and Best Practices</h3>
                     <p>Good code is readable code. Use comments (<code>#</code>) to explain your logic. Follow PEP 8 guidelines for clean code.</p>
                     <div class="code-block">
@@ -255,35 +264,39 @@ multi-line comment
 or a docstring.
 """</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson1-10')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson1-10">Mark as Complete</button>
                     <span id="lesson1-10-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="module-unlock-section">
+                <section class="module-unlock-section">
                     <h3>Module 1 Completion Quiz</h3>
                     <p>Answer the questions below to unlock Module 2!</p>
                     <div class="key-question">
+                        <label for="m1q1" class="sr-only">Question 1: What keyword is used to display output in Python?</label>
                         <p>1. What keyword is used to display output in Python?</p>
                         <input type="text" id="m1q1" placeholder="Your answer">
                     </div>
                     <div class="key-question">
+                        <label for="m1q2" class="sr-only">Question 2: What is the process of finding and fixing errors in code called?</label>
                         <p>2. What is the process of finding and fixing errors in code called?</p>
                         <input type="text" id="m1q2" placeholder="Your answer">
                     </div>
                     <div class="key-question">
+                        <label for="m1q3" class="sr-only">Question 3: What data type is <code>42</code>?</label>
                         <p>3. What data type is <code>42</code>?</p>
                         <input type="text" id="m1q3" placeholder="Your answer">
                     </div>
-                    <button onclick="checkUnlock('module1')">Unlock Module 2</button>
+                    <!-- Removed onclick, using data-module-target for JS event listener -->
+                    <button class="unlock-module-button" data-module-target="module1">Unlock Module 2</button>
                     <p id="module1-unlock-status" class="unlock-status"></p>
-                </div>
+                </section>
             </section>
 
             <section id="module2" class="module-section">
                 <h2 class="module-heading">Module 2: Loops & Functions</h2>
                 <p class="module-intro">Building on the basics, this module introduces you to control flow with loops and how to write reusable code with functions.</p>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 2.1: For Loops</h3>
                     <p>Iterate over sequences (like lists, tuples, strings, and ranges).</p>
                     <div class="code-block">
@@ -294,11 +307,11 @@ for x in fruits:
 for i in range(5): # 0 to 4
     print(i)</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson2-1')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson2-1">Mark as Complete</button>
                     <span id="lesson2-1-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 2.2: While Loops</h3>
                     <p>Execute a block of code as long as a condition is true.</p>
                     <div class="code-block">
@@ -307,14 +320,14 @@ while i < 6:
     print(i)
     i += 1</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson2-2')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson2-2">Mark as Complete</button>
                     <span id="lesson2-2-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card exercise-block">
+                <article class="lesson-card exercise-block">
                     <h3>Exercise 2.1: Sum of List Elements</h3>
                     <p>Write a program using a `for` loop to calculate the sum of all numbers in a given list: <code>numbers = [1, 5, 8, 12, 15]</code>.</p>
-                    <button class="solution-button" onclick="toggleSolution('solution2-1')">Show Solution</button>
+                    <button class="solution-button" data-solution-target="solution2-1">Show Solution</button>
                     <div id="solution2-1" class="solution-content">
                         <h4>Solution:</h4>
                         <div class="code-block">
@@ -323,13 +336,13 @@ total = 0
 for num in numbers:
     total += num
 print(total) # Output: 41</code></pre>
-                        </div>
                     </div>
-                    <button onclick="markComplete('lesson2-3')" class="mark-complete-button">Mark as Complete</button>
+                    </div>
+                    <button class="mark-complete-button" data-lesson-id="lesson2-3">Mark as Complete</button>
                     <span id="lesson2-3-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 2.3: Functions - Defining and Calling</h3>
                     <p>Functions are blocks of reusable code. Use the <code>def</code> keyword to define them.</p>
                     <div class="code-block">
@@ -339,17 +352,17 @@ print(total) # Output: 41</code></pre>
 greet("Alice") # Calling the function
 greet("Bob")</code></pre>
                     </div>
-                    <button onclick="markComplete('assignment2-1')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="assignment2-1">Mark as Complete</button>
                     <span id="assignment2-1-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 2.4: Function Arguments (Positional, Keyword, Default)</h3>
                     <p>Pass information into functions using arguments.</p>
                     <ul>
-                        <li>**Positional:** Order matters.</li>
-                        <li>**Keyword:** Use parameter names.</li>
-                        <li>**Default:** Provide a default value if not specified.</li>
+                        <li><strong>Positional:</strong> Order matters.</li>
+                        <li><strong>Keyword:</strong> Use parameter names.</li>
+                        <li><strong>Default:</strong> Provide a default value if not specified.</li>
                     </ul>
                     <div class="code-block">
                         <pre><code>def describe_pet(animal, name="Buddy"):
@@ -358,43 +371,43 @@ greet("Bob")</code></pre>
 describe_pet("dog")
 describe_pet(animal="cat", name="Whiskers")</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson2-4')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson2-4">Mark as Complete</button>
                     <span id="lesson2-4-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 2.5: Return Values</h3>
                     <p>Functions can return values using the <code>return</code> keyword.</p>
                     <div class="code-block">
                         <pre><code>def add(a, b):
-    return a + b
+                    return a + b
 
 result = add(5, 3)
 print(result) # Output: 8</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson2-5')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson2-5">Mark as Complete</button>
                     <span id="lesson2-5-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 2.6: Scope (Local vs. Global)</h3>
                     <p>Understand where variables are accessible.</p>
                     <div class="code-block">
                         <pre><code>global_var = "I am global"
 
 def my_function():
-    local_var = "I am local"
-    print(global_var) # Accessible
-    # print(local_var) # Accessible only inside here
+                    local_var = "I am local"
+                    print(global_var) # Accessible
+                    # print(local_var) # Accessible only inside here
 
 my_function()
 # print(local_var) # Error: local_var is not defined outside the function</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson2-6')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson2-6">Mark as Complete</button>
                     <span id="lesson2-6-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 2.7: Lambda Functions (Anonymous Functions)</h3>
                     <p>Small, anonymous functions defined with the <code>lambda</code> keyword.</p>
                     <div class="code-block">
@@ -406,17 +419,17 @@ my_list = [1, 5, 2, 8]
 sorted_list = sorted(my_list, key=lambda x: -x) # Sort descending
 print(sorted_list) # Output: [8, 5, 2, 1]</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson2-7')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson2-7">Mark as Complete</button>
                     <span id="lesson2-7-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 2.8: Modules and Packages (Introduction)</h3>
                     <p>Organize your code into reusable files (modules) and directories (packages).</p>
                     <div class="code-block">
                         <pre><code># In mymodule.py:
 # def hello():
-#     print("Hello from mymodule!")
+#       print("Hello from mymodule!")
 
 # In your main script:
 import mymodule
@@ -425,45 +438,69 @@ mymodule.hello()
 from math import sqrt
 print(sqrt(16))</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson2-8')" class="mark-complete-button">Mark as Complete</button>
-                    <span id="lesson2-8-status" class="completion-status">Incomplete</span>
-                </div>
+                    <button class="mark-complete-button" data-lesson-id="lesson2-8">Mark as Complete</button>
+                    <span id="lesson2-8-status" class="completion-completion-status">Incomplete</span>
+                </article>
 
-                <div class="module-unlock-section">
+                <section class="module-unlock-section">
                     <h3>Module 2 Completion Quiz</h3>
                     <p>Answer the questions below to unlock Module 3!</p>
                     <div class="key-question">
+                        <label for="m2q1" class="sr-only">Question 1: What keyword is used to define a function?</label>
                         <p>1. What keyword is used to define a function?</p>
                         <input type="text" id="m2q1" placeholder="Your answer">
                     </div>
                     <div class="key-question">
+                        <label for="m2q2" class="sr-only">Question 2: What loop iterates over a sequence?</label>
                         <p>2. What loop iterates over a sequence?</p>
                         <input type="text" id="m2q2" placeholder="Your answer">
                     </div>
                     <div class="key-question">
+                        <label for="m2q3" class="sr-only">Question 3: What keyword is used to create an anonymous function?</label>
                         <p>3. What keyword is used to create an anonymous function?</p>
                         <input type="text" id="m2q3" placeholder="Your answer">
                     </div>
-                    <button onclick="checkUnlock('module2')">Unlock Module 3</button>
+                    <button class="unlock-module-button" data-module-target="module2">Unlock Module 3</button>
                     <p id="module2-unlock-status" class="unlock-status"></p>
-                </div>
+                </section>
             </section>
 
             <section id="module3" class="module-section">
                 <h2 class="module-heading">Module 3: Binary & ASCII</h2>
                 <p class="module-intro">Explore how computers represent data, from the fundamental binary system to character encoding like ASCII.</p>
 
-                <div class="lesson-card mobile-programming-concept">
+                <article class="lesson-card mobile-programming-concept">
                     <h3>Lesson 3.1: Understanding Binary (0s and 1s)</h3>
                     <p>At its core, a computer understands only two states: on or off, represented by 1s and 0s. This is the binary system (base-2).</p>
                     <p>Every piece of data, from text to images, is ultimately stored and processed as binary code.</p>
                     <p>For example, the number 5 in decimal is `101` in binary.</p>
-                    <img src="https://via.placeholder.com/250x150?text=Binary+Concept" alt="Binary Concept" class="mobile-concept-img">
-                    <button onclick="markComplete('lesson3-1')" class="mark-complete-button">Mark as Complete</button>
+                    <!-- Replaced canvas with a new interactive decimal/binary converter -->
+                    <div class="converter-container">
+                        <div class="converter-input-group">
+                            <label for="decimalInput">Decimal:</label>
+                            <input type="number" id="decimalInput" placeholder="Enter decimal">
+                            <button id="convertToBinaryBtn">Convert to Binary</button>
+                        </div>
+                        <div class="converter-output-group">
+                            <label for="binaryOutput">Binary:</label>
+                            <input type="text" id="binaryOutput" readonly placeholder="Binary result">
+                        </div>
+                        <div class="converter-input-group">
+                            <label for="binaryInput">Binary:</label>
+                            <input type="text" id="binaryInput" placeholder="Enter binary">
+                            <button id="convertToDecimalBtn">Convert to Decimal</button>
+                        </div>
+                        <div class="converter-output-group">
+                            <label for="decimalOutput">Decimal:</label>
+                            <input type="text" id="decimalOutput" readonly placeholder="Decimal result">
+                        </div>
+                        <p id="converterError" class="unlock-status"></p>
+                    </div>
+                    <button class="mark-complete-button" data-lesson-id="lesson3-1">Mark as Complete</button>
                     <span id="lesson3-1-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 3.2: Converting Decimal to Binary</h3>
                     <p>To convert a decimal number to binary, repeatedly divide the decimal number by 2 and record the remainders. Read the remainders from bottom to top.</p>
                     <div class="code-block">
@@ -474,11 +511,11 @@ print(sqrt(16))</code></pre>
 # 1  / 2 = 0 Remainder 1
 # Result: 1101</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson3-2')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson3-2">Mark as Complete</button>
                     <span id="lesson3-2-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 3.3: Converting Binary to Decimal</h3>
                     <p>To convert binary to decimal, multiply each binary digit by 2 raised to the power of its position (starting from 0 on the right) and sum the results.</p>
                     <div class="code-block">
@@ -487,20 +524,20 @@ print(sqrt(16))</code></pre>
 # 1*8   + 1*4   + 0*2   + 1*1
 # 8     + 4     + 0     + 1 = 13</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson3-3')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson3-3">Mark as Complete</button>
                     <span id="lesson3-3-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 3.4: Introduction to ASCII</h3>
                     <p>ASCII (American Standard Code for Information Interchange) is a character encoding standard for electronic communication.</p>
                     <p>Each character (letters, numbers, symbols) is assigned a unique number from 0 to 127.</p>
                     <p>For example, the ASCII value for 'A' is 65, and for 'a' is 97.</p>
-                    <button onclick="markComplete('lesson3-4')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson3-4">Mark as Complete</button>
                     <span id="lesson3-4-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 3.5: Python Functions for ASCII/Binary Conversion</h3>
                     <p>Python provides built-in functions to work with ASCII values and binary representations:</p>
                     <ul>
@@ -515,14 +552,14 @@ print(chr(97))     # Output: a
 print(bin(10))     # Output: 0b1010
 print(int('1010', 2)) # Output: 10</code></pre>
                     </div>
-                    <button onclick="markComplete('lesson3-5')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson3-5">Mark as Complete</button>
                     <span id="lesson3-5-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card exercise-block">
+                <article class="lesson-card exercise-block">
                     <h3>Exercise 3.1: Character Conversion</h3>
                     <p>Using Python, find the ASCII value of the character 'Z' and then convert the ASCII value 72 back to its character.</p>
-                    <button class="solution-button" onclick="toggleSolution('solution3-1')">Show Solution</button>
+                    <button class="solution-button" data-solution-target="solution3-1">Show Solution</button>
                     <div id="solution3-1" class="solution-content">
                         <h4>Solution:</h4>
                         <div class="code-block">
@@ -530,51 +567,55 @@ print(int('1010', 2)) # Output: 10</code></pre>
 print(chr(72)) # Output: H</code></pre>
                         </div>
                     </div>
-                    <button onclick="markComplete('assignment3-1')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="assignment3-1">Mark as Complete</button>
                     <span id="assignment3-1-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lesson-card">
+                <article class="lesson-card">
                     <h3>Lesson 3.6: Practical Applications</h3>
                     <p>Understanding binary and ASCII is crucial for:</p>
                     <ul>
-                        <li>**Networking:** Data transmission.</li>
-                        <li>**Data Storage:** How files are saved.</li>
-                        <li>**Cryptography:** Encoding and decoding information.</li>
-                        <li>**Low-level Programming:** Interacting directly with hardware.</li>
+                        <li><strong>Networking:</strong> Data transmission.</li>
+                        <li><strong>Data Storage:</strong> How files are saved.</li>
+                        <li><strong>Cryptography:</b> Encoding and decoding information.</li>
+                        <li><strong>Low-level Programming:</strong> Interacting directly with hardware.</li>
                     </ul>
-                    <button onclick="markComplete('lesson3-6')" class="mark-complete-button">Mark as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lesson3-6">Mark as Complete</button>
                     <span id="lesson3-6-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="module-unlock-section">
+                <section class="module-unlock-section">
                     <h3>Module 3 Completion Quiz</h3>
                     <p>Answer the questions below to unlock Labs & Challenges!</p>
                     <div class="key-question">
+                        <label for="m3q1" class="sr-only">Question 1: What base is the binary system?</label>
                         <p>1. What base is the binary system?</p>
                         <input type="text" id="m3q1" placeholder="Your answer">
                     </div>
                     <div class="key-question">
+                        <label for="m3q2" class="sr-only">Question 2: What Python function gives the ASCII value of a character?</label>
                         <p>2. What Python function gives the ASCII value of a character?</p>
                         <input type="text" id="m3q2" placeholder="Your answer">
                     </div>
                     <div class="key-question">
-                        <p>3. How many bits are in a byte?</p>
+                        <label for="m3q3" class="sr-only">Question 3: How many bits are in a byte?</p>
                         <input type="text" id="m3q3" placeholder="Your answer">
                     </div>
-                    <button onclick="checkUnlock('module3')">Unlock Labs & Challenges</button>
+                    <button class="unlock-module-button" data-module-target="module3">Unlock Labs & Challenges</button>
                     <p id="module3-unlock-status" class="unlock-status"></p>
-                </div>
+                </section>
             </section>
 
             <section id="labs" class="module-section">
                 <h2 class="module-heading">Labs & Challenges</h2>
                 <p class="module-intro">Time to apply what you've learned! These labs and challenges will test your Python skills and problem-solving abilities, no matter your age or experience!</p>
 
-                <div class="lab-card">
+                <!-- Changed div.lab-card to article for semantic reasons -->
+                <article class="lab-card">
                     <h3>Lab 1: Simple Calculator</h3>
-                    <p>Create a Python script that acts as a simple calculator. It should take two numbers and an operator (+, -, \*, /) as input from the user and print the result. Handle division by zero.</p>
-                    <button class="lab-button" onclick="showLabDetails('lab1')">Show Lab Details</button>
+                    <p>Create a Python script that acts as a simple calculator. It should take two numbers and an operator (+, -, *, /) as input from the user and print the result. Handle division by zero.</p>
+                    <!-- Removed onclick, using data-lab-target for JS event listener -->
+                    <button class="lab-button" data-lab-target="lab1">Show Lab Details</button>
                     <div id="lab1-details" class="lab-details-content">
                         <h4>Instructions:</h4>
                         <ol>
@@ -587,16 +628,17 @@ print(chr(72)) # Output: H</code></pre>
                         </ol>
                         <h4>Hint:</h4>
                         <p>Use `input()` for user input and `float()` or `int()` for type conversion.</p>
-                        <a href="#" target="_blank" class="large-button">Download Starter Code (Optional)</a>
+                        <!-- Added rel="noopener noreferrer" for security when opening new tabs -->
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="large-button">Download Starter Code (Optional)</a>
                     </div>
-                    <button onclick="markComplete('lab1-completion')" class="mark-complete-button">Mark Lab as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lab1-completion">Mark Lab as Complete</button>
                     <span id="lab1-completion-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lab-card">
+                <article class="lab-card">
                     <h3>Lab 2: Guess the Number Game</h3>
                     <p>Write a game where the computer thinks of a random number between 1 and 100, and the user has to guess it. Provide hints (higher/lower) after each guess.</p>
-                    <button class="lab-button" onclick="showLabDetails('lab2')">Show Lab Details</button>
+                    <button class="lab-button" data-lab-target="lab2">Show Lab Details</button>
                     <div id="lab2-details" class="lab-details-content">
                         <h4>Instructions:</h4>
                         <ol>
@@ -608,16 +650,16 @@ print(chr(72)) # Output: H</code></pre>
                         </ol>
                         <h4>Hint:</h4>
                         <p>Think about loop conditions and how to get continuous input.</p>
-                        <a href="#" target="_blank" class="large-button">Download Starter Code (Optional)</a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="large-button">Download Starter Code (Optional)</a>
                     </div>
-                    <button onclick="markComplete('lab2-completion')" class="mark-complete-button">Mark Lab as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lab2-completion">Mark Lab as Complete</button>
                     <span id="lab2-completion-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lab-card">
+                <article class="lab-card">
                     <h3>Lab 3: Basic File I/O</h3>
                     <p>Create a Python script that can write a list of names to a text file and then read them back, printing each name.</p>
-                    <button class="lab-button" onclick="showLabDetails('lab3')">Show Lab Details</button>
+                    <button class="lab-button" data-lab-target="lab3">Show Lab Details</button>
                     <div id="lab3-details" class="lab-details-content">
                         <h4>Instructions:</h4>
                         <ol>
@@ -630,16 +672,16 @@ print(chr(72)) # Output: H</code></pre>
                         </ol>
                         <h4>Hint:</h4>
                         <p>Use `with open(...) as f:` for safe file handling. Remember `\n` for new lines.</p>
-                        <a href="#" target="_blank" class="large-button">Download Starter Code (Optional)</a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="large-button">Download Starter Code (Optional)</a>
                     </div>
-                    <button onclick="markComplete('lab3-completion')" class="mark-complete-button">Mark Lab as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lab3-completion">Mark Lab as Complete</button>
                     <span id="lab3-completion-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
 
-                <div class="lab-card">
+                <article class="lab-card">
                     <h3>Lab 4: Simple Data Analysis (List Operations)</h3>
                     <p>Given a list of numbers, write functions to calculate the average, find the maximum, and find the minimum number in the list without using built-in `sum()`, `max()`, `min()` directly (you can use them for verification, but implement the logic yourself).</p>
-                    <button class="lab-button" onclick="showLabDetails('lab4')">Show Lab Details</button>
+                    <button class="lab-button" data-lab-target="lab4">Show Lab Details</button>
                     <div id="lab4-details" class="lab-details-content">
                         <h4>Instructions:</h4>
                         <ol>
@@ -650,12 +692,13 @@ print(chr(72)) # Output: H</code></pre>
                             <li>Call these functions and print their results.</li>
                         </ol>
                         <h4>Hint:</h4>
-                        <p>Use loops for iteration. Initialize max/min with the first element.</p>
-                        <a href="#" target="_blank" class="large-button">Download Starter Code (Optional)</a>
+                        <p>Use `input()` for user input and `float()` or `int()` for type conversion.</p>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="large-button">Download Starter Code (Optional)</a>
                     </div>
-                    <button onclick="markComplete('lab4-completion')" class="mark-complete-button">Mark Lab as Complete</button>
+                    <button class="mark-complete-button" data-lesson-id="lab4-completion">Mark Lab as Complete</button>
                     <span id="lab4-completion-status" class="completion-status">Incomplete</span>
-                </div>
+                </article>
+
             </section>
 
             <section id="about" class="module-section">
@@ -673,5 +716,53 @@ print(chr(72)) # Output: H</code></pre>
     </footer>
 
     <script src="script.js"></script>
+    <!-- Inline script for decimal/binary converter -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const decimalInput = document.getElementById('decimalInput');
+            const convertToBinaryBtn = document.getElementById('convertToBinaryBtn');
+            const binaryOutput = document.getElementById('binaryOutput');
+
+            const binaryInput = document.getElementById('binaryInput');
+            const convertToDecimalBtn = document.getElementById('convertToDecimalBtn');
+            const decimalOutput = document.getElementById('decimalOutput');
+
+            const converterError = document.getElementById('converterError');
+
+            // Function to convert decimal to binary
+            convertToBinaryBtn.addEventListener('click', () => {
+                converterError.textContent = ''; // Clear previous errors
+                const decimalValue = parseInt(decimalInput.value, 10);
+
+                if (isNaN(decimalValue)) {
+                    converterError.textContent = 'Please enter a valid decimal number.';
+                    binaryOutput.value = '';
+                    return;
+                }
+                if (decimalValue < 0) {
+                    converterError.textContent = 'Please enter a non-negative decimal number.';
+                    binaryOutput.value = '';
+                    return;
+                }
+
+                binaryOutput.value = decimalValue.toString(2); // Built-in JS function for binary conversion
+            });
+
+            // Function to convert binary to decimal
+            convertToDecimalBtn.addEventListener('click', () => {
+                converterError.textContent = ''; // Clear previous errors
+                const binaryValue = binaryInput.value.trim();
+
+                // Validate binary input (only 0s and 1s)
+                if (!/^[01]+$/.test(binaryValue) || binaryValue === '') {
+                    converterError.textContent = 'Please enter a valid binary number (only 0s and 1s).';
+                    decimalOutput.value = '';
+                    return;
+                }
+
+                decimalOutput.value = parseInt(binaryValue, 2); // Built-in JS function for decimal conversion
+            });
+        });
+    </script>
 </body>
 </html>
