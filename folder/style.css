@@ -6,7 +6,20 @@ body {
     background-color: #f4f4f4; /* Light gray background */
     color: #333;
     line-height: 1.6;
-    /* overflow: hidden; will be added/removed by JS during loading */
+    /* overflow: hidden; is handled by JS during loading */
+}
+
+/* sr-only class for visually hiding elements while keeping them accessible to screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .container {
@@ -47,11 +60,12 @@ body {
     animation: fadeInScale 1s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bounce in */
 }
 
-.python-logo {
-    font-size: 8em; /* Large python emoji */
+.python-logo-image { /* Changed from .python-logo to .python-logo-image as per HTML */
+    width: 150px; /* Adjust size as needed */
+    height: auto;
     margin-bottom: 20px;
     animation: floatUpDown 2s infinite alternate ease-in-out,
-               rotateLogo 4s infinite linear; /* Floating and subtle rotation */
+                rotateLogo 4s infinite linear; /* Floating and subtle rotation */
     display: inline-block; /* Required for transform on inline elements */
     filter: drop-shadow(0 0 15px rgba(76, 175, 80, 0.8)); /* Glow effect */
 }
@@ -108,7 +122,6 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-
 @keyframes revealText {
     from {
         opacity: 0;
@@ -135,20 +148,18 @@ header {
     display: flex; /* Use flex to center content vertically */
     align-items: center; /* Vertically center content */
     justify-content: center; /* Horizontally center content */
-    /* No explicit height here; let content define it for accurate JS calculation */
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.5rem;
+    font-size: 2.2rem; /* Decreased from 2.5rem */
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 /* Main Content Flex Container */
 .main-content-flex {
     display: flex;
-    /* No padding-top here. It's applied to body by JS. */
-    padding-top: 0;
+    padding-top: 0; /* Padding-top is applied to body by JS on desktop */
     min-height: 100vh; /* Ensure it takes full viewport height for proper layout */
     box-sizing: border-box; /* Include padding in height calculation */
 }
@@ -165,17 +176,27 @@ header h1 {
     position: fixed; /* Make it fixed */
     left: 0; /* Align to the left edge of the viewport */
     z-index: 50; /* Ensure it's above main content but below loading overlay and header */
-    overflow-y: auto; /* Allow scrolling within the sidebar if content is long */
+    /* Removed overflow-y: auto from here, as it's now on .left-panel nav */
     box-sizing: border-box; /* Include padding in height calculation */
     /* top and height will be set by JS */
 }
 
 .left-panel h3 {
     color: #FFD700; /* Gold for headings */
-    margin-top: 0; /* Ensure no top margin pushes it down */
+    font-size: 1.1rem; /* Further decreased from 1.3rem */
+    margin-top: 0;
     border-bottom: 1px solid #555;
     padding-bottom: 10px;
     margin-bottom: 15px;
+    /* Ensure heading is always visible and not part of scrollable content */
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+/* Added overflow-y to the nav element instead of the whole left-panel */
+.left-panel nav {
+    flex-grow: 1; /* Allow nav to take up available space */
+    overflow-y: auto; /* Make only the navigation list scrollable */
+    padding-right: 5px; /* Add a little padding for scrollbar if present */
 }
 
 .left-panel nav ul {
@@ -195,6 +216,8 @@ header h1 {
     display: block;
     border-radius: 5px;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    /* FIX: Added position: relative for correct positioning of ::after lock icon */
+    position: relative;
 }
 
 .left-panel nav ul li a:hover {
@@ -212,7 +235,7 @@ header h1 {
     color: #bbb; /* Dim locked modules */
     cursor: not-allowed;
     background-color: #444;
-    position: relative;
+    position: relative; /* Ensure this is set for the pseudo-element to work */
     padding-right: 30px; /* Make space for lock icon */
 }
 
@@ -230,6 +253,7 @@ header h1 {
     margin-top: 30px;
     padding-top: 15px;
     border-top: 1px solid #555;
+    flex-shrink: 0; /* Prevent it from shrinking */
 }
 
 .progress-overview p {
@@ -275,7 +299,7 @@ header h1 {
 .module-heading {
     color: #4CAF50;
     text-align: center;
-    font-size: 2.2rem;
+    font-size: 2rem; /* Decreased from 2.2rem */
     margin-bottom: 20px;
     border-bottom: 2px solid #eee;
     padding-bottom: 10px;
@@ -301,7 +325,7 @@ header h1 {
 }
 
 .hero-text h3 {
-    font-size: 2.8rem;
+    font-size: 2.5rem; /* Decreased from 2.8rem */
     color: #333;
     margin-bottom: 15px;
 }
@@ -351,8 +375,8 @@ header h1 {
 }
 
 .intro-insight h4 {
+    font-size: 1.3rem; /* Decreased from 1.5rem */
     color: #007bff;
-    font-size: 1.5rem;
     margin-top: 0;
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
@@ -394,7 +418,7 @@ header h1 {
 
 .lesson-card h3 {
     color: #333;
-    font-size: 1.6rem;
+    font-size: 1.4rem; /* Decreased from 1.6rem */
     margin-top: 0;
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
@@ -462,7 +486,7 @@ header h1 {
     color: #28a745; /* Green when complete */
 }
 
-/* Module Unlock Section */
+/* --- Module Unlock Section --- */
 .module-unlock-section {
     background-color: #ffe0b2; /* Light orange background for unlock section */
     border: 2px dashed #ff9800; /* Dashed orange border */
@@ -475,7 +499,7 @@ header h1 {
 
 .module-unlock-section h3 {
     color: #d84315; /* Darker orange for heading */
-    font-size: 1.8rem;
+    font-size: 1.6rem; /* Decreased from 1.8rem */
     margin-bottom: 15px;
 }
 
@@ -506,7 +530,18 @@ header h1 {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
-    transition: background-color 0.3s ease; /* For feedback colors */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* For feedback colors */
+}
+
+/* Added styles for quiz input feedback */
+.key-question input[type="text"].correct-answer {
+    background-color: #e0ffe0; /* Very light green */
+    border-color: #4CAF50; /* Green border */
+}
+
+.key-question input[type="text"].incorrect-answer {
+    background-color: #ffe0e0; /* Very light red */
+    border-color: #dc3545; /* Red border */
 }
 
 .module-unlock-section button {
@@ -583,7 +618,7 @@ header h1 {
 
 .lab-card h3 {
     color: #0056b3; /* Dark blue for lab headings */
-    font-size: 1.7rem;
+    font-size: 1.5rem; /* Decreased from 1.7rem */
     margin-top: 0;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
@@ -651,16 +686,78 @@ header h1 {
     color: #e65100; /* Dark orange */
 }
 
-.mobile-concept-img {
-    max-width: 250px;
-    height: auto;
-    margin-top: 20px;
+/* Removed .binary-concept-canvas styles as it's no longer used */
+/* Removed .canvas-instructions as it's no longer used */
+
+/* New styles for the decimal/binary converter */
+.converter-container {
+    background-color: #e6f7ff; /* Light blue, similar to exercise blocks */
+    border: 2px solid #007bff;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 500px; /* Limit width for better readability */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.converter-input-group, .converter-output-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.converter-input-group label, .converter-output-group label {
+    font-weight: bold;
+    color: #333;
+    min-width: 70px; /* Align labels */
+    text-align: right;
+}
+
+.converter-input-group input[type="number"],
+.converter-input-group input[type="text"],
+.converter-output-group input[type="text"] {
+    flex-grow: 1; /* Take up remaining space */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.converter-input-group button {
+    background-color: #4CAF50; /* Green button */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.converter-input-group button:hover {
+    background-color: #388E3C;
+    transform: translateY(-1px);
+}
+
+.converter-output-group input[type="text"] {
+    background-color: #f0f0f0; /* Light grey for output fields */
+    cursor: default;
+}
+
+/* Error message for converter */
+#converterError {
+    text-align: center;
+    color: #dc3545; /* Red for error messages */
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 
-/* About Section */
+/* --- About Section --- */
 #about {
     text-align: center;
     padding: 50px 20px;
@@ -668,7 +765,7 @@ header h1 {
 
 #about h2 {
     color: #4CAF50;
-    font-size: 2.5rem;
+    font-size: 2.2rem; /* Decreased from 2.5rem */
     margin-bottom: 20px;
 }
 
@@ -677,6 +774,91 @@ header h1 {
     max-width: 800px;
     margin: 0 auto 15px auto;
     color: #555;
+}
+
+/* Name Input Modal Styles */
+#name-input-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    z-index: 10000; /* Higher than loading overlay */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px); /* Added blur effect */
+    -webkit-backdrop-filter: blur(5px); /* For Safari support */
+}
+
+#name-input-modal.active {
+    display: flex; /* Show when active */
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Slightly stronger shadow */
+    max-width: 400px;
+    width: 90%;
+    transform: translateY(-20px); /* Start slightly up */
+    opacity: 0;
+    animation: modalPopIn 0.4s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Subtle pop in */
+}
+
+@keyframes modalPopIn {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-content h2 { /* Changed from h3 to h2 as per HTML */
+    color: #4CAF50;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.6rem; /* Decreased from 1.8rem */
+}
+
+.modal-content input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 12px; /* Slightly more padding */
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.1rem; /* Slightly larger font */
+    box-sizing: border-box; /* Ensures padding is included in the width */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus */
+}
+
+.modal-content input[type="text"]:focus {
+    outline: none; /* Remove default outline */
+    border-color: #4CAF50; /* Green border on focus */
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3); /* Subtle green glow on focus */
+}
+
+.modal-content button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px; /* Slightly more padding for button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem; /* Slightly larger font */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Add transform and shadow transitions */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Add a subtle shadow to the button */
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px); /* Lift button slightly on hover */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3); /* Enhance shadow on hover */
 }
 
 /* Page Number */
@@ -709,7 +891,7 @@ footer p {
     /* Main flex container changes */
     .main-content-flex {
         flex-direction: column;
-        padding-top: 0; /* Remove padding-top for mobile */
+        padding-top: 0; /* Remove padding-top for mobile as header is relative */
     }
 
     /* Header changes for mobile */
@@ -722,18 +904,31 @@ footer p {
     header h1 {
         font-size: 1.8rem;
     }
-    /* header h2 is removed from HTML, so this rule is no longer needed */
-
 
     /* Left panel changes for mobile */
     .left-panel {
         position: relative; /* Reset to relative for smaller screens */
         width: 100%;
         max-height: 200px; /* Limit height for smaller screens */
-        overflow-y: auto; /* Make it scrollable if too many items */
+        /* FIX: Removed overflow-y: auto from here, as it's now on .left-panel nav */
         padding-bottom: 0; /* Adjust padding for better look */
         top: auto; /* Remove fixed top position */
         height: auto; /* Allow height to adjust */
+    }
+
+    /* Ensure the h3 is always visible on mobile too */
+    .left-panel h3 {
+        padding-top: 10px; /* Add some top padding if needed */
+        padding-bottom: 10px;
+        margin-bottom: 0; /* Remove bottom margin to prevent extra space */
+        border-bottom: none; /* Remove border if it looks odd with new layout */
+        text-align: center; /* Center the heading on mobile */
+    }
+
+    .left-panel nav {
+        flex-grow: 1;
+        overflow-y: auto; /* Ensure only nav scrolls */
+        max-height: 120px; /* Limit nav height if needed for mobile */
     }
 
     .left-panel nav ul {
@@ -785,6 +980,28 @@ footer p {
         margin-left: 0; /* Remove left margin for smaller screens */
         margin-top: 0; /* Remove top margin for smaller screens */
         height: auto; /* Allow height to adjust naturally */
+    }
+
+    .converter-container {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .converter-input-group, .converter-output-group {
+        flex-direction: column; /* Stack elements vertically on small screens */
+        align-items: flex-start; /* Align to start */
+        gap: 5px;
+    }
+
+    .converter-input-group label, .converter-output-group label {
+        text-align: left;
+        min-width: unset; /* Remove min-width */
+    }
+
+    .converter-input-group input,
+    .converter-output-group input,
+    .converter-input-group button {
+        width: 100%; /* Full width on small screens */
     }
 }
 
