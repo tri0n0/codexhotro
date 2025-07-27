@@ -599,7 +599,7 @@ print(chr(72)) # Output: H</code></pre>
                     </div>
                     <div class="key-question">
                         <label for="m3q3" class="sr-only">Question 3: How many bits are in a byte?</label>
-                        <p>3. What data type is <code>42</code>?</p>
+                        <p>3. How many bits are in a byte?</p>
                         <input type="text" id="m3q3" placeholder="Your answer">
                     </div>
                     <button class="unlock-module-button" data-module-target="module3">Unlock Labs & Challenges</button>
@@ -716,55 +716,214 @@ print(chr(72)) # Output: H</code></pre>
         <div class="page-number">Version 1.0</div>
     </footer>
 
-    <script src="script.js"></script>
-    <!-- Inline script for decimal/binary converter -->
+    <!-- Inline script for all JavaScript functionality -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const decimalInput = document.getElementById('decimalInput');
-            const convertToBinaryBtn = document.getElementById('convertToBinaryBtn');
-            const binaryOutput = document.getElementById('binaryOutput');
+            // --- Loading Overlay Logic ---
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const nameInputModal = document.getElementById('name-input-modal');
+            const userNameInput = document.getElementById('userNameInput');
+            const saveNameBtn = document.getElementById('saveNameBtn');
+            const dynamicHeaderText = document.getElementById('dynamic-header-text');
 
-            const binaryInput = document.getElementById('binaryInput');
-            const convertToDecimalBtn = document.getElementById('convertToDecimalBtn');
-            const decimalOutput = document.getElementById('decimalOutput');
+            // Show loading overlay initially
+            loadingOverlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling during loading
 
-            const converterError = document.getElementById('converterError');
+            // Simulate loading time
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+                document.body.style.overflow = ''; // Re-enable scrolling
 
-            // Function to convert decimal to binary
-            convertToBinaryBtn.addEventListener('click', () => {
-                converterError.textContent = ''; // Clear previous errors
-                const decimalValue = parseInt(decimalInput.value, 10);
-
-                if (isNaN(decimalValue)) {
-                    converterError.textContent = 'Please enter a valid decimal number.';
-                    binaryOutput.value = '';
-                    return;
+                // Check if user name is already stored
+                const storedUserName = localStorage.getItem('userName');
+                if (!storedUserName) {
+                    nameInputModal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is active
+                } else {
+                    updateUserName(storedUserName);
                 }
-                if (decimalValue < 0) {
-                    converterError.textContent = 'Please enter a non-negative decimal number.';
-                    binaryOutput.value = '';
-                    return;
-                }
+            }, 2000); // 2 seconds loading time
 
-                binaryOutput.value = decimalValue.toString(2); // Built-in JS function for binary conversion
+            saveNameBtn.addEventListener('click', () => {
+                const userName = userNameInput.value.trim();
+                if (userName) {
+                    localStorage.setItem('userName', userName);
+                    updateUserName(userName);
+                    nameInputModal.classList.remove('active');
+                    document.body.style.overflow = ''; // Re-enable scrolling
+                } else {
+                    // Optionally, provide feedback that name is required
+                    userNameInput.placeholder = 'Please enter your name!';
+                    userNameInput.style.borderColor = 'red';
+                }
             });
 
-            // Function to convert binary to decimal
-            convertToDecimalBtn.addEventListener('click', () => {
-                converterError.textContent = ''; // Clear previous errors
-                const binaryValue = binaryInput.value.trim();
+            function updateUserName(name) {
+                dynamicHeaderText.textContent = `Welcome, ${name} to Mastering Python Programming!`;
+            }
 
-                // Validate binary input (only 0s and 1s)
-                if (!/^[01]+$/.test(binaryValue) || binaryValue === '') {
-                    converterError.textContent = 'Please enter a valid binary number (only 0s and 1s).';
-                    decimalOutput.value = '';
-                    return;
+            // --- Sidebar Navigation & Module Display Logic ---
+            const navLinks = document.querySelectorAll('.left-panel nav ul li a');
+            const moduleSections = document.querySelectorAll('.module-section');
+            const moduleProgressIndicators = {
+                module1: document.getElementById('progress-module1'),
+                module2: document.getElementById('progress-module2'),
+                module3: document.getElementById('progress-module3'),
+                labs: document.getElementById('progress-labs')
+            };
+
+            // Function to save and load module completion status
+            function saveModuleStatus() {
+                const status = {};
+                for (const module in moduleProgressIndicators) {
+                    status[module] = moduleProgressIndicators[module].classList.contains('complete') ? 'complete' : 'incomplete';
+                }
+                // Also save unlocked state for nav links
+                const unlockedNav = {};
+                document.querySelectorAll('.left-panel nav ul li a').forEach(link => {
+                    unlockedNav[link.id] = !link.classList.contains('locked');
+                });
+                localStorage.setItem('moduleStatus', JSON.stringify(status));
+                localStorage.setItem('unlockedNav', JSON.stringify(unlockedNav));
+            }
+
+            function loadModuleStatus() {
+                const savedStatus = JSON.parse(localStorage.getItem('moduleStatus'));
+                if (savedStatus) {
+                    for (const module in savedStatus) {
+                        if (savedStatus[module] === 'complete') {
+                            moduleProgressIndicators[module].classList.add('complete');
+                        } else {
+                            moduleProgressIndicators[module].classList.remove('complete');
+                        }
+                    }
                 }
 
-                decimalOutput.value = parseInt(binaryValue, 2); // Built-in JS function for decimal conversion
+                const savedUnlockedNav = JSON.parse(localStorage.getItem('unlockedNav'));
+                if (savedUnlockedNav) {
+                    for (const linkId in savedUnlockedNav) {
+                        const link = document.getElementById(linkId);
+                        if (link) {
+                            if (savedUnlockedNav[linkId]) {
+                                link.classList.remove('locked');
+                                link.classList.add('unlocked');
+                            } else {
+                                link.classList.add('locked');
+                                link.classList.remove('unlocked');
+                            }
+                        }
+                    }
+                }
+                // Ensure Module 1 is always unlocked on load
+                document.getElementById('nav-module1').classList.remove('locked');
+                document.getElementById('nav-module1').classList.add('unlocked');
+            }
+
+            // Initial load of module status
+            loadModuleStatus();
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default anchor behavior
+                    const targetId = this.dataset.target;
+
+                    if (this.classList.contains('locked')) {
+                        // Optional: Add a visual cue that it's locked
+                        alert('This module is locked! Please complete the previous module quiz to unlock.');
+                        return;
+                    }
+
+                    // Remove 'active' from all module sections
+                    moduleSections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+
+                    // Add 'active' to the target module section
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+
+                    // Update active class for navigation links
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
             });
 
-            // Module Unlock Logic (Module 1)
+            // Set initial active module (Home)
+            document.getElementById('nav-home').classList.add('active');
+            document.getElementById('home').classList.add('active');
+
+            // --- Continue to Module 1 Button Logic ---
+            const continueToModule1Button = document.getElementById('continueToModule1');
+            if (continueToModule1Button) {
+                continueToModule1Button.addEventListener('click', () => {
+                    // Simulate click on Module 1 nav link
+                    document.getElementById('nav-module1').click();
+                });
+            }
+
+            // --- Mark as Complete Button Logic ---
+            const markCompleteButtons = document.querySelectorAll('.mark-complete-button');
+            markCompleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lessonId = this.dataset.lessonId;
+                    const statusSpan = document.getElementById(lessonId + '-status');
+                    if (statusSpan) {
+                        statusSpan.textContent = 'Complete';
+                        statusSpan.classList.add('complete');
+                        // Optionally disable the button after marking complete
+                        this.disabled = true;
+                        this.style.backgroundColor = '#ccc';
+                        this.style.cursor = 'default';
+                        saveModuleStatus(); // Save status after completion
+                    }
+                });
+            });
+
+            // --- Show Solution Button Logic ---
+            const solutionButtons = document.querySelectorAll('.solution-button');
+            solutionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const solutionTargetId = this.dataset.solutionTarget;
+                    const solutionContent = document.getElementById(solutionTargetId);
+                    if (solutionContent) {
+                        // Toggle visibility
+                        if (solutionContent.style.display === 'block') {
+                            solutionContent.style.display = 'none';
+                            this.textContent = 'Show Solution';
+                        } else {
+                            solutionContent.style.display = 'block';
+                            this.textContent = 'Hide Solution';
+                        }
+                    }
+                });
+            });
+
+            // --- Lab Details Button Logic ---
+            const labButtons = document.querySelectorAll('.lab-button');
+            labButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const labTargetId = this.dataset.labTarget;
+                    const labDetailsContent = document.getElementById(labTargetId + '-details');
+                    if (labDetailsContent) {
+                        // Toggle visibility
+                        if (labDetailsContent.style.display === 'block') {
+                            labDetailsContent.style.display = 'none';
+                            this.textContent = 'Show Lab Details';
+                        } else {
+                            labDetailsContent.style.display = 'block';
+                            this.textContent = 'Hide Lab Details';
+                        }
+                    }
+                });
+            });
+
+
+            // --- Module Unlock Logic (Module 1) ---
             const unlockModule1Button = document.querySelector('.unlock-module-button[data-module-target="module1"]');
             const module1UnlockStatus = document.getElementById('module1-unlock-status');
 
@@ -823,6 +982,7 @@ print(chr(72)) # Output: H</code></pre>
                         unlockModule1Button.disabled = true;
                         unlockModule1Button.style.backgroundColor = '#ccc';
                         unlockModule1Button.style.cursor = 'default';
+                        saveModuleStatus(); // Save status after unlock
                     } else {
                         module1UnlockStatus.textContent = 'Oops, Abhishek! Some answers are incorrect. Please review and try again. 😠';
                         module1UnlockStatus.classList.remove('success');
@@ -831,7 +991,7 @@ print(chr(72)) # Output: H</code></pre>
                 });
             }
 
-            // Module Unlock Logic (Module 2)
+            // --- Module Unlock Logic (Module 2) ---
             const unlockModule2Button = document.querySelector('.unlock-module-button[data-module-target="module2"]');
             const module2UnlockStatus = document.getElementById('module2-unlock-status');
 
@@ -890,6 +1050,7 @@ print(chr(72)) # Output: H</code></pre>
                         unlockModule2Button.disabled = true;
                         unlockModule2Button.style.backgroundColor = '#ccc';
                         unlockModule2Button.style.cursor = 'default';
+                        saveModuleStatus(); // Save status after unlock
                     } else {
                         module2UnlockStatus.textContent = 'Oops, Abhishek! Some answers are incorrect. Please review and try again. 😠';
                         module2UnlockStatus.classList.remove('success');
@@ -898,7 +1059,7 @@ print(chr(72)) # Output: H</code></pre>
                 });
             }
 
-            // Module Unlock Logic (Module 3)
+            // --- Module Unlock Logic (Module 3) ---
             const unlockModule3Button = document.querySelector('.unlock-module-button[data-module-target="module3"]');
             const module3UnlockStatus = document.getElementById('module3-unlock-status');
 
@@ -906,7 +1067,7 @@ print(chr(72)) # Output: H</code></pre>
                 unlockModule3Button.addEventListener('click', () => {
                     const m3q1 = document.getElementById('m3q1').value.trim().toLowerCase();
                     const m3q2 = document.getElementById('m3q2').value.trim().toLowerCase();
-                    const m3q3 = document.getElementById('m3q3').value.trim().toLowerCase(); // This is the third question
+                    const m3q3 = document.getElementById('m3q3').value.trim().toLowerCase();
 
                     let allCorrect = true;
 
@@ -931,7 +1092,7 @@ print(chr(72)) # Output: H</code></pre>
                     }
 
                     // Question 3: How many bits are in a byte? (Answer: 8)
-                    if (m3q3 === '8') { // This is the check for the third question
+                    if (m3q3 === '8') {
                         document.getElementById('m3q3').classList.remove('incorrect-answer');
                         document.getElementById('m3q3').classList.add('correct-answer');
                     } else {
@@ -957,6 +1118,7 @@ print(chr(72)) # Output: H</code></pre>
                         unlockModule3Button.disabled = true;
                         unlockModule3Button.style.backgroundColor = '#ccc';
                         unlockModule3Button.style.cursor = 'default';
+                        saveModuleStatus(); // Save status after unlock
                     } else {
                         module3UnlockStatus.textContent = 'Oops, Abhishek! Some answers are incorrect. Please review and try again. 😠';
                         module3UnlockStatus.classList.remove('success');
@@ -965,7 +1127,31 @@ print(chr(72)) # Output: H</code></pre>
                 });
             }
 
-            // ... (rest of the script) ...
+            // --- Dynamic Header Padding for Fixed Header ---
+            function adjustMainContentPadding() {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                document.body.style.paddingTop = `${headerHeight}px`;
+                const leftPanel = document.querySelector('.left-panel');
+                if (leftPanel) {
+                    leftPanel.style.top = `${headerHeight}px`;
+                    leftPanel.style.height = `calc(100vh - ${headerHeight}px)`;
+                }
+            }
+
+            // Adjust padding on load and resize
+            window.addEventListener('load', adjustMainContentPadding);
+            window.addEventListener('resize', adjustMainContentPadding);
+
+            // Set initial active nav link for the current module if refreshed
+            // This needs to run after loadModuleStatus to ensure locked/unlocked classes are set
+            const currentModuleId = window.location.hash.substring(1) || 'home';
+            const currentNavLink = document.getElementById(`nav-${currentModuleId}`);
+            if (currentNavLink && !currentNavLink.classList.contains('locked')) {
+                currentNavLink.click(); // Simulate click to activate the module
+            } else {
+                // If the module is locked or not found, default to home
+                document.getElementById('nav-home').click();
+            }
         });
     </script>
 </body>
