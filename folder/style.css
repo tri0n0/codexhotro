@@ -194,7 +194,7 @@ header h1 {
 /* Main Content Flex Container */
 .main-content-flex {
     display: flex;
-    padding-top: 0; /* Padding-top is applied to body by JS on desktop */
+    padding-top: 0; /* Padding-top is applied to body by JS for header spacing */
     min-height: 100vh; /* Ensure it takes full viewport height for proper layout */
     box-sizing: border-box; /* Include padding in height calculation */
     transition: transform 0.3s ease-in-out; /* Smooth transition for content push */
@@ -735,16 +735,8 @@ header h1 {
 
 /* New styles for the decimal/binary converter */
 .converter-container {
-    background-color: #e6f7ff; /* Light blue, similar to exercise blocks */
-    border: 2px solid #007bff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 500px; /* Limit width for better readability */
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    padding: 15px;
+    gap: 10px;
 }
 
 .converter-input-group, .converter-output-group {
@@ -939,7 +931,7 @@ footer p {
     }
 
     header h1 {
-        font-size: 1.3rem; /* Further decrease header font size for mobile */
+        font-size: 1.6rem; /* Increased font size for mobile header */
         text-align: center; /* Center align header text */
         flex-grow: 0; /* Don't let it grow, let menu-toggle position itself */
         position: absolute; /* Position absolutely to allow menu-toggle to be at left */
@@ -1068,7 +1060,7 @@ footer p {
 
 @media (max-width: 600px) {
     header h1 {
-        font-size: 1.1rem; /* Even smaller header font for very small mobiles */
+        font-size: 1.4rem; /* Even larger header font for very small mobiles */
     }
     .hero-text h3 {
         font-size: 1.5rem;
