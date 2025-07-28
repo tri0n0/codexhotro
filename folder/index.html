@@ -54,9 +54,7 @@
     <div class="main-content-flex">
 
         <aside class="left-panel">
-            <button id="close-sidebar" class="close-sidebar" aria-label="Close navigation menu">
-                <i class="fas fa-times"></i>
-            </button>
+            <!-- Removed the close-sidebar button as per new interaction -->
             <h3>Course Modules</h3>
             <nav>
                 <ul>
@@ -579,7 +577,7 @@ print(chr(72)) # Output: H</code></pre>
                         <li><strong>Networking:</strong> Data transmission.</li>
                         <li><strong>Data Storage:</strong> How files are saved.</li>
                         <li><strong>Cryptography:</b> Encoding and decoding information.</li>
-                        <li><strong>Low-level Programming:</strong> Interacting directly with hardware.</li>
+                        <li><strong>Low-level Programming:</b> Interacting directly with hardware.</li>
                     </ul>
                     <button class="mark-complete-button" data-lesson-id="lesson3-6">Mark as Complete</button>
                     <span id="lesson3-6-status" class="completion-status">Incomplete</span>
@@ -729,8 +727,8 @@ print(chr(72)) # Output: H</code></pre>
             // Mobile sidebar elements
             const menuToggle = document.getElementById('menu-toggle');
             const leftPanel = document.querySelector('.left-panel');
-            const closeSidebarBtn = document.getElementById('close-sidebar');
             const mainContentFlex = document.querySelector('.main-content-flex');
+            const moduleDisplayArea = document.querySelector('.module-display-area'); // Get the module display area
 
             // Show loading overlay initially
             loadingOverlay.classList.remove('hidden');
@@ -848,7 +846,6 @@ print(chr(72)) # Output: H</code></pre>
 
                     if (this.classList.contains('locked')) {
                         // Optional: Add a visual cue that it's locked
-                        // alert('This module is locked! Please complete the previous module quiz to unlock.'); // Replaced alert with console log
                         console.log('This module is locked! Please complete the previous module quiz to unlock.');
                         return;
                     }
@@ -871,9 +868,10 @@ print(chr(72)) # Output: H</code></pre>
                     this.classList.add('active');
 
                     // Close sidebar on mobile after selection
-                    if (window.innerWidth <= 900) { // Assuming 900px is your mobile breakpoint
+                    if (window.innerWidth <= 900) {
                         leftPanel.classList.remove('active');
                         mainContentFlex.classList.remove('sidebar-open');
+                        moduleDisplayArea.classList.remove('blurred-content'); // Remove blurred class from module area
                         document.body.style.overflow = ''; // Re-enable scrolling
                     }
                 });
@@ -1010,7 +1008,7 @@ print(chr(72)) # Output: H</code></pre>
                         unlockModule1Button.style.cursor = 'default';
                         saveModuleStatus(); // Save status after unlock
                     } else {
-                        module1UnlockStatus.textContent = 'Oops, Abhishek! Some answers are incorrect. Please review and try again. 😠';
+                        module1UnlockStatus.textContent = 'Oops, Abhishek! Some answers are incorrect. Please review and try again. �';
                         module1UnlockStatus.classList.remove('success');
                         module1UnlockStatus.classList.add('unlock-status');
                     }
@@ -1100,7 +1098,7 @@ print(chr(72)) # Output: H</code></pre>
                     // Question 1: What base is the binary system? (Answer: 2)
                     if (m3q1 === '2') {
                         document.getElementById('m3q1').classList.remove('incorrect-answer');
-                        document.getElementById('m3q1').classList.add('correct-answer');
+                        document.getElementById('m1q1').classList.add('correct-answer');
                     } else {
                         document.getElementById('m3q1').classList.remove('correct-answer');
                         document.getElementById('m3q1').classList.add('incorrect-answer');
@@ -1203,17 +1201,35 @@ print(chr(72)) # Output: H</code></pre>
             }
 
             // --- Mobile Sidebar Toggle Logic ---
-            if (menuToggle && leftPanel && closeSidebarBtn && mainContentFlex) {
-                menuToggle.addEventListener('click', () => {
-                    leftPanel.classList.add('active');
-                    mainContentFlex.classList.add('sidebar-open'); // Add class to body/main to push content
-                    document.body.style.overflow = 'hidden'; // Prevent scrolling when sidebar is open
+            if (menuToggle && leftPanel && mainContentFlex && moduleDisplayArea) {
+                // Toggle sidebar on menuToggle click
+                menuToggle.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent this click from propagating to document and closing immediately
+                    if (leftPanel.classList.contains('active')) {
+                        leftPanel.classList.remove('active');
+                        mainContentFlex.classList.remove('sidebar-open');
+                        moduleDisplayArea.classList.remove('blurred-content'); // Remove blurred class from module area
+                        document.body.style.overflow = ''; // Re-enable scrolling
+                    } else {
+                        leftPanel.classList.add('active');
+                        mainContentFlex.classList.add('sidebar-open');
+                        moduleDisplayArea.classList.add('blurred-content'); // Add blurred class to module area
+                        document.body.style.overflow = 'hidden'; // Prevent scrolling when sidebar is open
+                    }
                 });
 
-                closeSidebarBtn.addEventListener('click', () => {
-                    leftPanel.classList.remove('active');
-                    mainContentFlex.classList.remove('sidebar-open');
-                    document.body.style.overflow = ''; // Re-enable scrolling
+                // Close sidebar when clicking outside of it or the menuToggle
+                document.addEventListener('click', (event) => {
+                    // Check if the sidebar is active AND the click target is NOT inside the leftPanel
+                    // AND the click target is NOT the menuToggle button itself
+                    if (leftPanel.classList.contains('active') &&
+                        !leftPanel.contains(event.target) &&
+                        !menuToggle.contains(event.target)) {
+                        leftPanel.classList.remove('active');
+                        mainContentFlex.classList.remove('sidebar-open');
+                        moduleDisplayArea.classList.remove('blurred-content'); // Remove blurred class from module area
+                        document.body.style.overflow = ''; // Re-enable scrolling
+                    }
                 });
             }
 
@@ -1229,6 +1245,7 @@ print(chr(72)) # Output: H</code></pre>
                     leftPanel.style.height = `calc(100vh - ${headerHeight}px)`;
                     leftPanel.classList.remove('active'); // Ensure sidebar is not active on desktop
                     mainContentFlex.classList.remove('sidebar-open'); // Ensure no push on desktop
+                    moduleDisplayArea.classList.remove('blurred-content'); // Ensure no blur on desktop
                     document.body.style.overflow = ''; // Ensure scrolling is enabled on desktop
                 } else {
                     // On mobile, sidebar height is full viewport height, top is 0
