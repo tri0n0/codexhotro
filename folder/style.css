@@ -9,6 +9,12 @@ body {
     overflow-x: hidden; /* Prevent horizontal scroll from sidebar animation */
 }
 
+/* New: Class to prevent scrolling on html/body */
+html.no-scroll, body.no-scroll {
+    overflow: hidden;
+    height: 100%; /* Ensure height is defined for overflow:hidden to work */
+}
+
 /* sr-only class for visually hiding elements while keeping them accessible to screen readers */
 .sr-only {
     position: absolute;
