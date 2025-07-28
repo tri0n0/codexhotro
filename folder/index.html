@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
     <title>Mastering Python Programming - For Everyone!</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3Ctext x='50%' y='90%' style='font-size: 80px; text-anchor: middle;'%3E%F0%9F%90%8D%3C/text%3E%3C/svg%3E" type="image/svg+xml">
@@ -702,7 +702,6 @@ print(chr(72)) # Output: H</code></pre>
                 <h2 class="module-heading">About This Course</h2>
                 <p>This "Mastering Python Programming" course is designed for everyone – regardless of age or prior experience. Whether you're a young learner just starting your coding journey, a student looking to excel in STEM, or an adult professional aiming to enhance your skills, this course will take you beyond the basics and delve into more complex and practical aspects of Python. It's built to empower you to automate tasks, solve problems, and even create amazing projects!</p>
                 <p>We believe in hands-on learning, which is why each module is packed with practical examples, engaging exercises, and real-world challenges. Our goal, here at STEMIndia, led by Abhishek Dutta, is to equip you with the skills and confidence to tackle any Python project and foster a lifelong love for coding.</p>
-                <p>Happy coding, and welcome to the STEMIndia family!</p>
                 <button id="changeNameBtn" class="cta-button">Change My Name</button>
             </section>
         </main>
@@ -872,7 +871,8 @@ print(chr(72)) # Output: H</code></pre>
                         leftPanel.classList.remove('active');
                         mainContentFlex.classList.remove('sidebar-open');
                         moduleDisplayArea.classList.remove('blurred-content'); // Remove blurred class from module area
-                        document.body.style.overflow = ''; // Re-enable scrolling
+                        document.documentElement.classList.remove('no-scroll'); // Re-enable scrolling on html
+                        document.body.style.overflow = ''; // Re-enable scrolling on body
                     }
                 });
             });
@@ -1008,7 +1008,7 @@ print(chr(72)) # Output: H</code></pre>
                         unlockModule1Button.style.cursor = 'default';
                         saveModuleStatus(); // Save status after unlock
                     } else {
-                        module1UnlockStatus.textContent = 'Oops, Abhishek! Some answers are incorrect. Please review and try again. �';
+                        module1UnlockStatus.textContent = 'Oops, Abhishek! Some answers are incorrect. Please review and try again. 😠';
                         module1UnlockStatus.classList.remove('success');
                         module1UnlockStatus.classList.add('unlock-status');
                     }
@@ -1209,12 +1209,14 @@ print(chr(72)) # Output: H</code></pre>
                         leftPanel.classList.remove('active');
                         mainContentFlex.classList.remove('sidebar-open');
                         moduleDisplayArea.classList.remove('blurred-content'); // Remove blurred class from module area
-                        document.body.style.overflow = ''; // Re-enable scrolling
+                        document.documentElement.classList.remove('no-scroll'); // Re-enable scrolling on html
+                        document.body.style.overflow = ''; // Re-enable scrolling on body
                     } else {
                         leftPanel.classList.add('active');
                         mainContentFlex.classList.add('sidebar-open');
                         moduleDisplayArea.classList.add('blurred-content'); // Add blurred class to module area
-                        document.body.style.overflow = 'hidden'; // Prevent scrolling when sidebar is open
+                        document.documentElement.classList.add('no-scroll'); // Prevent scrolling on html
+                        document.body.style.overflow = 'hidden'; // Prevent scrolling on body
                     }
                 });
 
@@ -1228,7 +1230,8 @@ print(chr(72)) # Output: H</code></pre>
                         leftPanel.classList.remove('active');
                         mainContentFlex.classList.remove('sidebar-open');
                         moduleDisplayArea.classList.remove('blurred-content'); // Remove blurred class from module area
-                        document.body.style.overflow = ''; // Re-enable scrolling
+                        document.documentElement.classList.remove('no-scroll'); // Re-enable scrolling on html
+                        document.body.style.overflow = ''; // Re-enable scrolling on body
                     }
                 });
             }
@@ -1246,11 +1249,12 @@ print(chr(72)) # Output: H</code></pre>
                     leftPanel.classList.remove('active'); // Ensure sidebar is not active on desktop
                     mainContentFlex.classList.remove('sidebar-open'); // Ensure no push on desktop
                     moduleDisplayArea.classList.remove('blurred-content'); // Ensure no blur on desktop
+                    document.documentElement.classList.remove('no-scroll'); // Ensure scrolling is enabled on desktop
                     document.body.style.overflow = ''; // Ensure scrolling is enabled on desktop
                 } else {
                     // On mobile, sidebar height is full viewport height, top is 0
-                    leftPanel.style.top = '0';
-                    leftPanel.style.height = '100vh';
+                    // This is handled by CSS, but ensure JS doesn't interfere
+                    // The `no-scroll` class will manage body/html overflow
                 }
             }
 
