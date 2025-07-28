@@ -160,12 +160,12 @@ header h1 {
 /* Hamburger menu button */
 .menu-toggle {
     background: #388E3C; /* Darker green background */
-    border: 2px solid white; /* White border */
+    border: 1px solid white; /* White border */
     color: white;
-    font-size: 1.4rem; /* Reduced font size */
+    font-size: 1.3rem; /* Adjusted font size */
     cursor: pointer;
-    padding: 6px 10px; /* Reduced padding */
-    border-radius: 6px; /* Slightly smaller rounded corners */
+    padding: 6px 9px; /* Adjusted padding */
+    border-radius: 6px; /* Rounded corners */
     display: none; /* Hidden by default, shown on mobile */
     position: absolute; /* Position absolutely within header */
     left: 10px; /* Align to left */
@@ -182,28 +182,7 @@ header h1 {
 }
 
 
-/* Close sidebar button */
-.close-sidebar {
-    background: #dc3545; /* Red background for close button */
-    border: 2px solid white; /* White border */
-    color: white;
-    font-size: 1.6rem; /* Reduced font size */
-    cursor: pointer;
-    padding: 6px 10px; /* Reduced padding */
-    border-radius: 6px; /* Slightly smaller rounded corners */
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 100; /* Ensure it's above sidebar content */
-    display: none; /* Hidden by default, shown on mobile sidebar */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Subtle shadow */
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.close-sidebar:hover {
-    background-color: #c82333; /* Darker red on hover */
-    transform: scale(1.05);
-}
+/* Removed Close sidebar button styles as it's no longer needed */
 
 
 /* Main Content Flex Container */
@@ -215,18 +194,28 @@ header h1 {
     transition: transform 0.3s ease-in-out; /* Smooth transition for content push */
 }
 
+/* Class for blurring content when sidebar is open - now applied to module-display-area */
+.module-display-area.blurred-content {
+    filter: blur(5px); /* Apply blur effect */
+    background-color: rgba(255, 255, 255, 0.7); /* Light semi-transparent overlay */
+    pointer-events: none; /* Prevent interaction with blurred content */
+    transition: filter 0.3s ease-in-out, background-color 0.3s ease-in-out; /* Smooth transition for blur */
+}
+
+
 /* Left Panel (Sidebar Navigation) */
 .left-panel {
     width: 250px;
     background-color: #333; /* Dark sidebar */
     color: white;
+    /* Adjusted padding for mobile and desktop */
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     position: fixed; /* Make it fixed */
     left: 0; /* Align to the left edge of the viewport */
-    z-index: 50; /* Ensure it's above main content but below loading overlay and header */
+    z-index: 250; /* Ensure it's above blurred content */
     box-sizing: border-box; /* Include padding in height calculation */
     transition: transform 0.3s ease-in-out; /* Smooth slide transition */
     transform: translateX(0); /* Default position for desktop */
@@ -247,7 +236,7 @@ header h1 {
 .left-panel nav {
     flex-grow: 1; /* Allow nav to take up available space */
     overflow-y: auto; /* Make only the navigation list scrollable */
-    padding-right: 5px; /* Add a little padding for scrollbar if present */
+    padding-right: 0; /* Removed this padding as it was causing extra space */
 }
 
 .left-panel nav ul {
@@ -336,6 +325,8 @@ header h1 {
     overflow-y: auto; /* Enable scrolling for module content */
     margin-left: 250px; /* Same width as .left-panel */
     box-sizing: border-box; /* Include padding in width/height calculation */
+    position: relative; /* Needed for z-index and blur context */
+    z-index: 1; /* Ensure it's below the sidebar but above other content */
 }
 
 .module-section {
@@ -942,7 +933,7 @@ footer p {
     }
 
     header h1 {
-        font-size: 1.5rem; /* Further decrease header font size for mobile */
+        font-size: 1.3rem; /* Further decrease header font size for mobile */
         text-align: center; /* Center align header text */
         flex-grow: 0; /* Don't let it grow, let menu-toggle position itself */
         position: absolute; /* Position absolutely to allow menu-toggle to be at left */
@@ -956,6 +947,8 @@ footer p {
 
     .menu-toggle {
         display: block; /* Show hamburger on mobile */
+        font-size: 1.1rem; /* Smaller font size for icon */
+        padding: 4px 7px; /* Smaller padding */
     }
 
     .main-content-flex {
@@ -963,13 +956,15 @@ footer p {
         padding-top: 0; /* Remove padding-top for mobile as header is relative */
         position: relative; /* Needed for sidebar push effect */
         left: 0;
-        transition: left 0.3s ease-in-out; /* Smooth transition for content push */
+        transition: left 0.3s ease-in-out; /* Only transition for content push */
     }
 
     .main-content-flex.sidebar-open {
         left: 250px; /* Push content to the right when sidebar is open */
         overflow: hidden; /* Prevent content scroll when sidebar is open */
     }
+
+    /* No .close-sidebar styles needed anymore */
 
     .left-panel {
         position: fixed; /* Keep fixed for slide-out effect */
@@ -978,16 +973,12 @@ footer p {
         top: 0;
         left: 0;
         transform: translateX(-100%); /* Hide sidebar off-screen by default */
-        padding-top: 60px; /* Space for close button */
+        padding: 20px 10px 20px 20px; /* Adjusted padding: reduced right padding to 10px */
         box-shadow: 2px 0 10px rgba(0,0,0,0.5); /* Stronger shadow when open */
     }
 
     .left-panel.active {
         transform: translateX(0); /* Slide in when active */
-    }
-
-    .close-sidebar {
-        display: block; /* Show close button on active sidebar */
     }
 
     .left-panel h3 {
@@ -1001,13 +992,13 @@ footer p {
     }
 
     .left-panel nav ul {
-        flex-direction: column; /* Stack nav items vertically */
-        align-items: flex-start; /* Align items to start */
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
 
     .left-panel nav ul li {
-        margin: 0 0 10px 0; /* Adjust margins */
-        width: 100%; /* Full width for nav items */
+        margin-bottom: 10px;
     }
 
     .left-panel nav ul li a {
@@ -1057,7 +1048,7 @@ footer p {
 
 @media (max-width: 600px) {
     header h1 {
-        font-size: 1.3rem; /* Even smaller header font for very small mobiles */
+        font-size: 1.1rem; /* Even smaller header font for very small mobiles */
     }
     .hero-text h3 {
         font-size: 1.5rem;
@@ -1110,13 +1101,19 @@ footer p {
         top: var(--header-height, 0px); /* Set by JS */
     }
     .main-content-flex {
-        left: 0; /* Ensure no push on desktop */
-        transform: translateX(0); /* Ensure no transform on desktop */
+        flex-grow: 1; /* Allow it to take up all available space */
+        margin-left: 250px; /* Explicitly set margin for desktop based on sidebar width */
+        margin-right: 0; /* Ensure no extra margin on the right */
+        /* Ensure no blur on desktop */
+        filter: none;
+        background-color: transparent;
+        pointer-events: auto;
     }
     .module-display-area {
-        margin-left: 250px; /* Maintain desktop margin */
-        padding-left: 40px; /* Increased padding for desktop main content */
-        padding-right: 40px; /* Increased padding for desktop main content */
+        padding-left: 60px; /* Increased padding for desktop main content */
+        padding-right: 60px; /* Increased padding for desktop main content */
+        max-width: 900px; /* Set a max-width for the content itself to prevent it from becoming too wide */
+        margin: 0 auto; /* Center the content within the module-display-area */
     }
     header {
         justify-content: center; /* Center header content on desktop */
@@ -1125,23 +1122,20 @@ footer p {
 
 @media (min-width: 1200px) {
     .main-content-flex {
-        max-width: 1400px; /* Limit overall width for very large screens */
-        margin: 0 auto; /* Center the content */
+        margin-left: 280px; /* Adjust margin to match wider sidebar */
     }
     header h1 {
         font-size: 2.8rem; /* Slightly larger for very wide screens */
     }
     .module-display-area {
-        padding: 50px; /* More padding on large screens */
+        padding: 60px; /* More padding on large screens */
+        max-width: 1000px; /* Slightly wider max-width for larger screens */
     }
     .lesson-card, .module-unlock-section, .lab-card {
-        padding: 45px; /* More padding for cards */
+        padding: 50px; /* More padding for cards */
     }
     .left-panel {
         width: 280px; /* Slightly wider sidebar on large screens */
-    }
-    .module-display-area {
-        margin-left: 280px; /* Adjust margin to match wider sidebar */
     }
 }
 
@@ -1160,12 +1154,12 @@ footer p {
         font-size: 1.8rem; /* Larger lesson headings */
     }
     .main-content-flex {
-        max-width: 1600px; /* Further limit overall width for extreme screens */
+        margin-left: 300px; /* Adjust margin */
+    }
+    .module-display-area {
+        max-width: 1200px; /* Further limit overall width for extreme screens */
     }
     .left-panel {
         width: 300px; /* Even wider sidebar */
-    }
-    .module-display-area {
-        margin-left: 300px; /* Adjust margin */
     }
 }
