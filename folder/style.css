@@ -194,7 +194,7 @@ header h1 {
 /* Main Content Flex Container */
 .main-content-flex {
     display: flex;
-    padding-top: 0; /* Padding-top is applied to body by JS for header spacing */
+    padding-top: 0; /* Padding-top is applied to body by JS on desktop */
     min-height: 100vh; /* Ensure it takes full viewport height for proper layout */
     box-sizing: border-box; /* Include padding in height calculation */
     transition: transform 0.3s ease-in-out; /* Smooth transition for content push */
@@ -926,7 +926,7 @@ footer p {
 /* Tablet and Mobile adjustments (max-width: 900px) */
 @media (max-width: 900px) {
     header {
-        padding: 1.2rem 10px; /* Increased vertical padding for mobile header */
+        padding: 1.5rem 10px; /* Further increased vertical padding for mobile header */
         justify-content: space-between; /* Space out hamburger and title */
     }
 
