@@ -926,7 +926,7 @@ footer p {
 /* Tablet and Mobile adjustments (max-width: 900px) */
 @media (max-width: 900px) {
     header {
-        padding: 0.8rem 10px; /* Adjust header padding for mobile */
+        padding: 1.2rem 10px; /* Increased vertical padding for mobile header */
         justify-content: space-between; /* Space out hamburger and title */
     }
 
