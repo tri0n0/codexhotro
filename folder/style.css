@@ -975,6 +975,8 @@ footer p {
         transform: translateX(-100%); /* Hide sidebar off-screen by default */
         padding: 20px 10px 20px 20px; /* Adjusted padding: reduced right padding to 10px */
         box-shadow: 2px 0 10px rgba(0,0,0,0.5); /* Stronger shadow when open */
+        /* Ensure sidebar content can scroll if it overflows */
+        overflow-y: auto;
     }
 
     .left-panel.active {
@@ -984,11 +986,16 @@ footer p {
     .left-panel h3 {
         padding-top: 0; /* Adjust padding for mobile sidebar */
         text-align: center;
+        /* Make sure the heading is always visible at the top of the scrolling sidebar */
+        position: sticky;
+        top: 0;
+        background-color: #333; /* Match sidebar background */
+        z-index: 10; /* Ensure it stays above scrolling content */
     }
 
     .left-panel nav {
         max-height: none; /* Remove max-height, let it scroll if needed */
-        overflow-y: auto;
+        overflow-y: visible; /* Allow content to scroll within the parent .left-panel */
     }
 
     .left-panel nav ul {
@@ -1011,6 +1018,11 @@ footer p {
         margin-top: auto; /* Push to bottom of sidebar */
         border-top: 1px solid #555;
         padding-top: 15px;
+        /* Make sure progress overview is also sticky at the bottom */
+        position: sticky;
+        bottom: 0;
+        background-color: #333; /* Match sidebar background */
+        z-index: 10; /* Ensure it stays above scrolling content */
     }
 
     .hero-text h3 {
@@ -1099,6 +1111,7 @@ footer p {
         padding-top: 20px; /* Reset padding for desktop */
         height: calc(100vh - var(--header-height, 0px)); /* Set by JS */
         top: var(--header-height, 0px); /* Set by JS */
+        overflow-y: auto; /* Enable scrolling for desktop sidebar if content overflows */
     }
     .main-content-flex {
         flex-grow: 1; /* Allow it to take up all available space */
