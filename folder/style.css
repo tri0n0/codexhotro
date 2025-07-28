@@ -6,7 +6,7 @@ body {
     background-color: #f4f4f4; /* Light gray background */
     color: #333;
     line-height: 1.6;
-    /* overflow: hidden; is handled by JS during loading */
+    overflow-x: hidden; /* Prevent horizontal scroll from sidebar animation */
 }
 
 /* sr-only class for visually hiding elements while keeping them accessible to screen readers */
@@ -60,7 +60,7 @@ body {
     animation: fadeInScale 1s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bounce in */
 }
 
-.python-logo-image { /* Changed from .python-logo to .python-logo-image as per HTML */
+.python-logo-image {
     width: 150px; /* Adjust size as needed */
     height: auto;
     margin-bottom: 20px;
@@ -136,7 +136,7 @@ body {
 header {
     background-color: #4CAF50; /* Green theme */
     color: white;
-    padding: 1rem 0;
+    padding: 1rem 20px; /* Added horizontal padding */
     text-align: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     position: fixed; /* Make it fixed */
@@ -147,13 +147,64 @@ header {
     display: flex; /* Use flex to center content vertically */
     align-items: center; /* Vertically center content */
     justify-content: center; /* Horizontally center content */
+    box-sizing: border-box; /* Include padding in width */
 }
 
 header h1 {
     margin: 0;
     font-size: 2.2rem;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    flex-grow: 1; /* Allow heading to take available space */
 }
+
+/* Hamburger menu button */
+.menu-toggle {
+    background: #388E3C; /* Darker green background */
+    border: 2px solid white; /* White border */
+    color: white;
+    font-size: 1.4rem; /* Reduced font size */
+    cursor: pointer;
+    padding: 6px 10px; /* Reduced padding */
+    border-radius: 6px; /* Slightly smaller rounded corners */
+    display: none; /* Hidden by default, shown on mobile */
+    position: absolute; /* Position absolutely within header */
+    left: 10px; /* Align to left */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 201; /* Above header text if needed */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Subtle shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.menu-toggle:hover {
+    background-color: #2E7D32; /* Even darker green on hover */
+    transform: translateY(-50%) scale(1.05);
+}
+
+
+/* Close sidebar button */
+.close-sidebar {
+    background: #dc3545; /* Red background for close button */
+    border: 2px solid white; /* White border */
+    color: white;
+    font-size: 1.6rem; /* Reduced font size */
+    cursor: pointer;
+    padding: 6px 10px; /* Reduced padding */
+    border-radius: 6px; /* Slightly smaller rounded corners */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 100; /* Ensure it's above sidebar content */
+    display: none; /* Hidden by default, shown on mobile sidebar */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Subtle shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.close-sidebar:hover {
+    background-color: #c82333; /* Darker red on hover */
+    transform: scale(1.05);
+}
+
 
 /* Main Content Flex Container */
 .main-content-flex {
@@ -161,6 +212,7 @@ header h1 {
     padding-top: 0; /* Padding-top is applied to body by JS on desktop */
     min-height: 100vh; /* Ensure it takes full viewport height for proper layout */
     box-sizing: border-box; /* Include padding in height calculation */
+    transition: transform 0.3s ease-in-out; /* Smooth transition for content push */
 }
 
 /* Left Panel (Sidebar Navigation) */
@@ -175,8 +227,9 @@ header h1 {
     position: fixed; /* Make it fixed */
     left: 0; /* Align to the left edge of the viewport */
     z-index: 50; /* Ensure it's above main content but below loading overlay and header */
-    /* Removed overflow-y: auto from here, as it's now on .left-panel nav */
     box-sizing: border-box; /* Include padding in height calculation */
+    transition: transform 0.3s ease-in-out; /* Smooth slide transition */
+    transform: translateX(0); /* Default position for desktop */
     /* top and height will be set by JS */
 }
 
@@ -187,7 +240,6 @@ header h1 {
     border-bottom: 1px solid #555;
     padding-bottom: 10px;
     margin-bottom: 15px;
-    /* Ensure heading is always visible and not part of scrollable content */
     flex-shrink: 0; /* Prevent it from shrinking */
 }
 
@@ -215,7 +267,6 @@ header h1 {
     display: block;
     border-radius: 5px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    /* FIX: Added position: relative for correct positioning of ::after lock icon */
     position: relative;
 }
 
@@ -234,7 +285,7 @@ header h1 {
     color: #bbb; /* Dim locked modules */
     cursor: not-allowed;
     background-color: #444;
-    position: relative; /* Ensure this is set for the pseudo-element to work */
+    position: relative;
     padding-right: 30px; /* Make space for lock icon */
 }
 
@@ -685,9 +736,6 @@ header h1 {
     color: #e65100; /* Dark orange */
 }
 
-/* Removed .binary-concept-canvas styles as it's no longer used */
-/* Removed .canvas-instructions as it's no longer used */
-
 /* New styles for the decimal/binary converter */
 .converter-container {
     background-color: #e6f7ff; /* Light blue, similar to exercise blocks */
@@ -886,94 +934,102 @@ footer p {
 }
 
 /* Responsive Design */
-/* Tablet and Mobile adjustments */
+/* Tablet and Mobile adjustments (max-width: 900px) */
 @media (max-width: 900px) {
+    header {
+        padding: 0.8rem 10px; /* Adjust header padding for mobile */
+        justify-content: space-between; /* Space out hamburger and title */
+    }
+
+    header h1 {
+        font-size: 1.5rem; /* Further decrease header font size for mobile */
+        text-align: center; /* Center align header text */
+        flex-grow: 0; /* Don't let it grow, let menu-toggle position itself */
+        position: absolute; /* Position absolutely to allow menu-toggle to be at left */
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 80px); /* Account for buttons on both sides */
+        white-space: nowrap; /* Prevent text wrapping */
+        overflow: hidden; /* Hide overflow if text is too long */
+        text-overflow: ellipsis; /* Add ellipsis if text is too long */
+    }
+
+    .menu-toggle {
+        display: block; /* Show hamburger on mobile */
+    }
+
     .main-content-flex {
         flex-direction: column;
         padding-top: 0; /* Remove padding-top for mobile as header is relative */
+        position: relative; /* Needed for sidebar push effect */
+        left: 0;
+        transition: left 0.3s ease-in-out; /* Smooth transition for content push */
     }
 
-    header {
-        position: relative; /* Make header relative again on small screens */
-        padding: 0.8rem 0;
-        height: auto;
-        display: block;
-    }
-    header h1 {
-        font-size: 1.8rem;
+    .main-content-flex.sidebar-open {
+        left: 250px; /* Push content to the right when sidebar is open */
+        overflow: hidden; /* Prevent content scroll when sidebar is open */
     }
 
     .left-panel {
-        position: relative; /* Reset to relative for smaller screens */
-        width: 100%;
-        max-height: 200px; /* Limit height for smaller screens */
-        padding-bottom: 0;
-        top: auto;
-        height: auto;
+        position: fixed; /* Keep fixed for slide-out effect */
+        width: 250px; /* Fixed width for sidebar */
+        height: 100vh; /* Full height */
+        top: 0;
+        left: 0;
+        transform: translateX(-100%); /* Hide sidebar off-screen by default */
+        padding-top: 60px; /* Space for close button */
+        box-shadow: 2px 0 10px rgba(0,0,0,0.5); /* Stronger shadow when open */
+    }
+
+    .left-panel.active {
+        transform: translateX(0); /* Slide in when active */
+    }
+
+    .close-sidebar {
+        display: block; /* Show close button on active sidebar */
     }
 
     .left-panel h3 {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        margin-bottom: 0;
-        border-bottom: none;
+        padding-top: 0; /* Adjust padding for mobile sidebar */
         text-align: center;
     }
 
     .left-panel nav {
-        flex-grow: 1;
+        max-height: none; /* Remove max-height, let it scroll if needed */
         overflow-y: auto;
-        max-height: 120px;
     }
 
     .left-panel nav ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column; /* Stack nav items vertically */
+        align-items: flex-start; /* Align items to start */
     }
 
     .left-panel nav ul li {
-        margin: 5px;
+        margin: 0 0 10px 0; /* Adjust margins */
+        width: 100%; /* Full width for nav items */
     }
 
     .left-panel nav ul li a {
-        padding: 8px 12px;
-        font-size: 0.9rem;
+        padding: 12px 15px; /* Larger touch targets */
+        font-size: 1rem;
     }
 
     .left-panel .progress-overview {
-        display: none; /* Hide progress overview on smaller screens to save space */
+        display: block; /* Show progress overview on mobile sidebar */
+        margin-top: auto; /* Push to bottom of sidebar */
+        border-top: 1px solid #555;
+        padding-top: 15px;
     }
 
     .hero-text h3 {
-        font-size: 2rem;
-    }
-
-    .hero-text p, .intro-insight p, .lesson-card p, .module-unlock-section p {
-        font-size: 1rem;
-    }
-
-    .cta-button, .module-unlock-section button {
-        padding: 12px 20px;
-        font-size: 1rem;
-    }
-
-    .module-heading {
-        font-size: 1.8rem;
-    }
-
-    .lesson-card h3 {
-        font-size: 1.4rem;
-    }
-
-    .video-container {
-        padding-bottom: 65%; /* Adjust aspect ratio for better mobile viewing if needed */
+        font-size: 1.8rem; /* Adjusted for mobile */
     }
 
     .module-display-area {
-        margin-left: 0; /* Remove left margin for smaller screens */
+        margin-left: 0; /* No left margin on mobile */
         margin-top: 0;
-        height: auto;
+        padding: 15px; /* Adjust padding */
     }
 
     .converter-container {
@@ -1001,33 +1057,72 @@ footer p {
 
 @media (max-width: 600px) {
     header h1 {
-        font-size: 1.8rem;
+        font-size: 1.3rem; /* Even smaller header font for very small mobiles */
     }
-
+    .hero-text h3 {
+        font-size: 1.5rem;
+    }
+    .module-heading {
+        font-size: 1.6rem;
+    }
+    .lesson-card h3 {
+        font-size: 1.2rem;
+    }
     .container {
         width: 95%;
         padding: 10px 0;
     }
-
     .module-display-area {
-        padding: 15px;
+        padding: 10px;
     }
-
     .lesson-card, .module-unlock-section, .lab-card {
         padding: 15px;
         margin-bottom: 15px;
     }
-
     .key-question {
         width: 95%;
     }
-
     .key-question input[type="text"] {
         width: calc(100% - 20px);
     }
+    .modal-content {
+        padding: 20px;
+    }
+    .modal-content h2 {
+        font-size: 1.4rem;
+    }
+    .modal-content button {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
 }
 
-/* Desktop and Larger Screens (New additions for optimization) */
+/* Desktop and Larger Screens */
+@media (min-width: 901px) {
+    .menu-toggle, .close-sidebar {
+        display: none !important; /* Hide on desktop */
+    }
+    .left-panel {
+        position: fixed; /* Keep fixed on desktop */
+        transform: translateX(0); /* Ensure it's always visible */
+        padding-top: 20px; /* Reset padding for desktop */
+        height: calc(100vh - var(--header-height, 0px)); /* Set by JS */
+        top: var(--header-height, 0px); /* Set by JS */
+    }
+    .main-content-flex {
+        left: 0; /* Ensure no push on desktop */
+        transform: translateX(0); /* Ensure no transform on desktop */
+    }
+    .module-display-area {
+        margin-left: 250px; /* Maintain desktop margin */
+        padding-left: 40px; /* Increased padding for desktop main content */
+        padding-right: 40px; /* Increased padding for desktop main content */
+    }
+    header {
+        justify-content: center; /* Center header content on desktop */
+    }
+}
+
 @media (min-width: 1200px) {
     .main-content-flex {
         max-width: 1400px; /* Limit overall width for very large screens */
@@ -1037,10 +1132,10 @@ footer p {
         font-size: 2.8rem; /* Slightly larger for very wide screens */
     }
     .module-display-area {
-        padding: 30px; /* More padding on large screens */
+        padding: 50px; /* More padding on large screens */
     }
     .lesson-card, .module-unlock-section, .lab-card {
-        padding: 35px; /* More padding for cards */
+        padding: 45px; /* More padding for cards */
     }
     .left-panel {
         width: 280px; /* Slightly wider sidebar on large screens */
