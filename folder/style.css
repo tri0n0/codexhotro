@@ -975,15 +975,13 @@ footer p {
     .left-panel {
         position: fixed; /* Keep fixed for slide-out effect */
         width: 250px; /* Fixed width for sidebar */
-        /* Calculate height based on viewport height minus header height */
-        height: calc(100vh - var(--header-height, 64px)); /* Default 64px if JS var not set */
-        top: var(--header-height, 64px); /* Position below the header */
+        height: 100vh; /* Set height to full viewport height */
+        top: 0; /* Position from the very top of the viewport */
         left: 0;
         transform: translateX(-100%); /* Hide sidebar off-screen by default */
         padding: 20px 10px 20px 20px; /* Adjusted padding: reduced right padding to 10px */
         box-shadow: 2px 0 10px rgba(0,0,0,0.5); /* Stronger shadow when open */
-        /* Ensure sidebar content can scroll if it overflows */
-        overflow-y: auto;
+        /* Removed overflow-y: auto from here. It will be on the nav element. */
         display: flex; /* Ensure flex column for sticky elements */
         flex-direction: column;
     }
@@ -1004,7 +1002,8 @@ footer p {
 
     .left-panel nav {
         flex-grow: 1; /* Allow nav to take up available space */
-        /* Removed overflow-y: visible; as it conflicts with parent's overflow-y: auto */
+        overflow-y: auto; /* IMPORTANT: Make only the navigation list scrollable */
+        padding-right: 0; /* Ensure no extra space on the right of the scrollbar */
     }
 
     .left-panel nav ul {
